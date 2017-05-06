@@ -3,15 +3,27 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
+using UIConfiguration.Models;
 
 namespace UIConfiguration.Controllers
 {
     [Authorize]
     public class ConfigurationController : Controller
     {
-        public ActionResult Index()
+        private ApplicationDbContext _dbContext = new ApplicationDbContext();
+
+        private SnowwhiteUser loggedInUser = null;
+
+        public ActionResult Index(string id)
         {
-            return View();
+            loggedInUser = _dbContext.Users.Find(id);
+            return View(loggedInUser);
+        }
+
+        [Authorize]
+        public ActionResult ShowProfile()
+        {
+            return View(loggedInUser);
         }
     }
 }

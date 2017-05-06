@@ -4,15 +4,16 @@
     ViewBag.Title = "Log in";
 }
 
-<h2>@ViewBag.Title</h2>
-<h3>Log in with your registrated account.</h3>
-<hr />
-@*<div class="row">
-    <div class="col-md-8 col-md-offset-4">
-        <section id="loginForm">*@
+
+<h2>@ViewBag.Title.</h2>
+<div class="row">
+    <div class="col-md-8">
+        <section id="loginForm">
             @using (Html.BeginForm("Login", "Account", new { ReturnUrl = ViewBag.ReturnUrl }, FormMethod.Post, new { @class = "form-horizontal", role = "form" }))
             {
                 @Html.AntiForgeryToken()
+                <h4>Use a local account to log in.</h4>
+                <hr />
                 @Html.ValidationSummary(true, "", new { @class = "text-danger" })
                 <div class="form-group">
                     @Html.LabelFor(m => m.Email, new { @class = "col-md-2 control-label" })
@@ -28,34 +29,30 @@
                         @Html.ValidationMessageFor(m => m.Password, "", new { @class = "text-danger" })
                     </div>
                 </div>
-                @*<div class="form-group">
+                <div class="form-group">
                     <div class="col-md-offset-2 col-md-10">
                         <div class="checkbox">
                             @Html.CheckBoxFor(m => m.RememberMe)
                             @Html.LabelFor(m => m.RememberMe)
                         </div>
                     </div>
-                </div>*@
+                </div>
+
                 <div class="form-group">
                     <div class="col-md-offset-2 col-md-10">
-                        <input type="submit" value="Login" class="btn btn-primary" />
-                        @Html.ActionLink("Register", "Register", null, new { @class = "btn btn-success" })
-                        @*<a href="@Url.Action("Register","Account")" class="btn btn-success">Register</a>*@
+                        <input type="submit" value="Log in" class="btn btn-default" />
                     </div>
                 </div>
-                @* Diese Option aktivieren, nachdem Sie die Kontobestätigung für die Funktion zum Zurücksetzen des Kennworts aktiviert haben
-                    <p>
-                        @Html.ActionLink("Kennwort vergessen?", "ForgotPassword")
-                    </p>*@
+                <p>
+                    @Html.ActionLink("Register as a new user", "Register")
+                </p>
+                <p>
+                    @Html.ActionLink("Forgot your password?", "ForgotPassword")
+                </p>
             }
-        @*</section>
-    </div>*@
-    @*<div class="col-md-4">
-        <section id="socialLoginForm">
-            @Html.Partial("_ExternalLoginsListPartial", new ExternalLoginListViewModel { ReturnUrl = ViewBag.ReturnUrl })
         </section>
-    </div>*@
-@*</div>*@
+    </div>
+</div>
 
 @section Scripts {
     @Scripts.Render("~/bundles/jqueryval")

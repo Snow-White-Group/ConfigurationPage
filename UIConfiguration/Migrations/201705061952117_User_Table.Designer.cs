@@ -7,13 +7,13 @@ namespace UIConfiguration.Migrations
     using System.Resources;
     
     [GeneratedCode("EntityFramework.Migrations", "6.1.3-40302")]
-    public sealed partial class Users_Table : IMigrationMetadata
+    public sealed partial class User_Table : IMigrationMetadata
     {
-        private readonly ResourceManager Resources = new ResourceManager(typeof(Users_Table));
+        private readonly ResourceManager Resources = new ResourceManager(typeof(User_Table));
         
         string IMigrationMetadata.Id
         {
-            get { return "201705031811107_Users_Table"; }
+            get { return "201705061952117_User_Table"; }
         }
         
         string IMigrationMetadata.Source

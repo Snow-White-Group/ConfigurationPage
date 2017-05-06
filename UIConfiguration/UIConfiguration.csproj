@@ -191,25 +191,24 @@
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\IdentityConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
-    <Compile Include="App_Start\Startup.Auth.cs" />
-    <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\ConfigurationController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
-    <Compile Include="Controllers\ManageController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
-    <Compile Include="Migrations\201705031811107_Users_Table.cs" />
-    <Compile Include="Migrations\201705031811107_Users_Table.Designer.cs">
-      <DependentUpon>201705031811107_Users_Table.cs</DependentUpon>
+    <Compile Include="Controllers\AccountController.cs" />
+    <Compile Include="Migrations\201705061952117_User_Table.cs" />
+    <Compile Include="Migrations\201705061952117_User_Table.Designer.cs">
+      <DependentUpon>201705061952117_User_Table.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201705062005304_User_Table_Fix_1.cs" />
+    <Compile Include="Migrations\201705062005304_User_Table_Fix_1.Designer.cs">
+      <DependentUpon>201705062005304_User_Table_Fix_1.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
-    <Compile Include="Models\SnowwhiteUser.cs" />
+    <Compile Include="Models\IdentityContext.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
-    <Compile Include="Models\IdentityModels.cs" />
-    <Compile Include="Models\ManageViewModels.cs" />
-    <Compile Include="Models\UsersContext.cs" />
-    <Compile Include="Models\SnowwhiteUsersContext.cs" />
+    <Compile Include="Models\SnowwhiteUser.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Startup.cs" />
   </ItemGroup>
@@ -220,10 +219,10 @@
     <Content Include="Content\bootstrap.min.css" />
     <Content Include="Content\font-awesome.css" />
     <Content Include="Content\font-awesome.min.css" />
-    <Content Include="Content\Images\cem.png" />
-    <Content Include="Content\Images\domi.png" />
-    <Content Include="Content\Images\marc.png" />
-    <Content Include="Content\Images\mario.png" />
+    <Content Include="Content\Images\Team\cem.png" />
+    <Content Include="Content\Images\Team\domi.png" />
+    <Content Include="Content\Images\Team\marc.png" />
+    <Content Include="Content\Images\Team\mario.png" />
     <Content Include="Content\Images\snowwhite.jpg" />
     <Content Include="favicon.ico" />
     <Content Include="fonts\fontawesome-webfont.svg" />
@@ -263,7 +262,9 @@
     <Content Include="Scripts\respond.matchmedia.addListener.js" />
     <Content Include="Scripts\respond.matchmedia.addListener.min.js" />
     <Content Include="Scripts\respond.min.js" />
-    <Content Include="Web.config" />
+    <Content Include="Web.config">
+      <SubType>Designer</SubType>
+    </Content>
     <Content Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </Content>
@@ -277,30 +278,21 @@
     <Content Include="Views\Home\About.cshtml" />
     <Content Include="Views\Home\Contact.cshtml" />
     <Content Include="Views\Home\Index.cshtml" />
-    <Content Include="Views\Account\_ExternalLoginsListPartial.cshtml" />
     <Content Include="Views\Account\ConfirmEmail.cshtml" />
-    <Content Include="Views\Account\ExternalLoginConfirmation.cshtml" />
-    <Content Include="Views\Account\ExternalLoginFailure.cshtml" />
     <Content Include="Views\Account\ForgotPassword.cshtml" />
     <Content Include="Views\Account\ForgotPasswordConfirmation.cshtml" />
     <Content Include="Views\Account\Login.cshtml" />
     <Content Include="Views\Account\Register.cshtml" />
     <Content Include="Views\Account\ResetPassword.cshtml" />
     <Content Include="Views\Account\ResetPasswordConfirmation.cshtml" />
-    <Content Include="Views\Account\SendCode.cshtml" />
-    <Content Include="Views\Account\VerifyCode.cshtml" />
-    <Content Include="Views\Manage\AddPhoneNumber.cshtml" />
-    <Content Include="Views\Manage\ChangePassword.cshtml" />
-    <Content Include="Views\Manage\Index.cshtml" />
-    <Content Include="Views\Manage\ManageLogins.cshtml" />
-    <Content Include="Views\Manage\SetPassword.cshtml" />
-    <Content Include="Views\Manage\VerifyPhoneNumber.cshtml" />
     <Content Include="Views\Shared\Lockout.cshtml" />
     <Content Include="Views\Shared\_LoginPartial.cshtml" />
     <Content Include="Views\Configuration\Index.cshtml" />
+    <Content Include="Views\Account\NotVerificated.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
+    <Folder Include="Content\Images\ProfilePictures\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="packages.config" />
@@ -312,8 +304,11 @@
     <Content Include="Scripts\jquery-3.1.1.min.map" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Migrations\201705031811107_Users_Table.resx">
-      <DependentUpon>201705031811107_Users_Table.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\201705061952117_User_Table.resx">
+      <DependentUpon>201705061952117_User_Table.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201705062005304_User_Table_Fix_1.resx">
+      <DependentUpon>201705062005304_User_Table_Fix_1.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

@@ -1,0 +1,22 @@
+﻿
+@{
+    ViewBag.Title = "Not verificated!";
+}
+
+<h2>@ViewBag.Title</h2>
+
+<p> 
+    You need to check your emails and click the verfication email!
+    Your Snowwhite-Team
+</p>
+<button class="btn btn-link" id="send-verification">I have no email. Please send again</button>
+
+@section Scripts{
+    $("#send-verification").on("click", function(){
+        @Url.Action("SendVerification", "Account");
+        alert("Verification email was sent. you will be redirected");
+        setTimeout(function(){
+            window.location.href = "@Url.Action("Index","Home")";
+        }, 2000);
+    });    
+}
