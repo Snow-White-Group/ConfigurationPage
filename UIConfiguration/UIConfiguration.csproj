@@ -205,6 +205,10 @@
     <Compile Include="Migrations\201705062005304_User_Table_Fix_1.Designer.cs">
       <DependentUpon>201705062005304_User_Table_Fix_1.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201705081631581_add_speechid.cs" />
+    <Compile Include="Migrations\201705081631581_add_speechid.Designer.cs">
+      <DependentUpon>201705081631581_add_speechid.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\IdentityContext.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
@@ -309,6 +313,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201705062005304_User_Table_Fix_1.resx">
       <DependentUpon>201705062005304_User_Table_Fix_1.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201705081631581_add_speechid.resx">
+      <DependentUpon>201705081631581_add_speechid.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

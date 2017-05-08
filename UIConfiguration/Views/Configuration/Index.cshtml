@@ -4,5 +4,40 @@
     ViewBag.Title = "Mirror-Configuration";
 }
 
-<h2>Hallo @Model.FirstName @Model.LastName</h2>
+<h2>Hello @Model.FirstName @Model.LastName !</h2>
+@if (Model.SpeechID.Equals(""))
+{
+    <div class="jumbotron">
+        <p>You have to record your voice!</p>
+        <p></p>
+        <ol style="list-style-type: decimal">
+            <li>Check wheather your mirror is on</li>
+            <li>Press <button id="startRecording"><i class="btn btn-primary fa fa-microphone"></i></button> to start recording</li>
+            <li>Go to the mirror</li>
+            <li>There you will see a new window where you can record your voice.</li>
+        </ol>
+    </div>
+}
+@section Scripts
+{   
+<script>
+    $("#startRecording").on("click", function(){
+        @Url.Action("SetDesireRecord", "Configuration");
+        toggelButton();
+    });
 
+    function toggleButton(){
+        var btn = $("#startRecording");
+        if (btn.hasClass("btn-primary"))
+        {
+            btn.removeClass("btn-primary");
+            btn.addClass("btn-danger");
+        }
+        else
+        {
+            btn.removeClass("btn-danger");
+            btn.addClass("btn-primary");
+        }
+    }
+</script>
+}

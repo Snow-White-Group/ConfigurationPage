@@ -30,12 +30,18 @@ namespace UIConfiguration.Models
 
     public class AccountController : Controller
     {
+        // application- and signInManger are required for the identity management. They handle the authentication and the sessions
         private ApplicationSignInManager _signInManager;
         private ApplicationUserManager _userManager;
 
+        // database context
         private ApplicationDbContext _dbContext = new ApplicationDbContext();
 
+        // user object which is logged in
         private SnowwhiteUser loggedInUser = null;
+
+        // check variable for the mirror to see when a user want to record his/her voice on the mirror
+        private bool desireRecord = false;
 
         public ApplicationSignInManager SignInManager
         {
@@ -184,6 +190,22 @@ namespace UIConfiguration.Models
                 return Redirect(returnUrl);
             }
             return RedirectToAction("Index", "Home");
+        }
+
+        public void SetDesireRecord()
+        {
+            this.desireRecord = !this.desireRecord;
+        }
+
+        [AllowAnonymous]
+        public JsonResult DesireRecording()
+        {
+            if (this.desireRecord)
+            {
+                SetDesireRecord();
+                return Json(this.loggedInUser, JsonRequestBehavior.AllowGet);
+            }
+            return null;
         }
 
         private void SendVerificationEmail(SnowwhiteUser user)

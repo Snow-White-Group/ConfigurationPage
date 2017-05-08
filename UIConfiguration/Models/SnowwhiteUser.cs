@@ -15,5 +15,6 @@ namespace UIConfiguration.Models
         public string Thumbnail { get; set; }
         public DateTime? RegistrationDate { get; set; }
         public DateTime? LastLogin { get; set; }
+        public string SpeechID { get; set; }
     }
 }
