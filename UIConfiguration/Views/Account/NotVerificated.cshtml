@@ -14,7 +14,7 @@
 @section Scripts{
     $("#send-verification").on("click", function(){
         @Url.Action("SendVerification", "Account");
-        alert("Verification email was sent. you will be redirected");
+        alert("Verification email was sent.<br /> you will be redirected");
         setTimeout(function(){
             window.location.href = "@Url.Action("Index","Home")";
         }, 2000);

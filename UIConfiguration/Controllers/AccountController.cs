@@ -12,6 +12,8 @@ using System.IO;
 using System.Web.UI.WebControls;
 using System.Net.Mail;
 using System.Net;
+using System.Configuration;
+using System.Text;
 
 namespace UIConfiguration.Models
 {
@@ -161,7 +163,7 @@ namespace UIConfiguration.Models
             return RedirectToAction("Index", "Home");
         }
 
-
+        [AllowAnonymous]
         public ActionResult NotVerificated()
         {
             return View();
@@ -192,9 +194,10 @@ namespace UIConfiguration.Models
             return RedirectToAction("Index", "Home");
         }
 
-        public void SetDesireRecord()
+        public JsonResult SetDesireRecord()
         {
             this.desireRecord = !this.desireRecord;
+            return Json(this.desireRecord ? "success" : "failed", JsonRequestBehavior.AllowGet);
         }
 
         [AllowAnonymous]
@@ -208,7 +211,7 @@ namespace UIConfiguration.Models
             return null;
         }
 
-        private void SendVerificationEmail(SnowwhiteUser user)
+        private Task SendVerificationEmail(SnowwhiteUser user)
         {
             SnowwhiteUser userForMail = loggedInUser ?? user;
             string body = "Hello " + userForMail.FirstName + " " + userForMail.LastName + "!";
@@ -216,17 +219,22 @@ namespace UIConfiguration.Models
             body += "<br /><br/> Thank you and have fun with enjoying your smart mirror!";
             body += "<br /><br/> Your Snowwhite-Team";
 
-            using (MailMessage mm = new MailMessage("jackblack1982@web.de", userForMail.Email))
+            using (MailMessage mm = new MailMessage(ConfigurationManager.AppSettings["EmailAddress"], userForMail.Email))
             {
                 SmtpClient smtp = new SmtpClient();
                 smtp.Host = "smtp.web.de";
-                smtp.EnableSsl = true;
-                NetworkCredential NetworkCred = new NetworkCredential("jackblack1982@web.de", "dhbwtinf15b2");
                 smtp.UseDefaultCredentials = true;
+                smtp.EnableSsl = true;
+                NetworkCredential NetworkCred = new NetworkCredential(ConfigurationManager.AppSettings["EmailAddress"].ToString(), ConfigurationManager.AppSettings["EmailPW"].ToString());
                 smtp.Credentials = NetworkCred;
                 smtp.Port = 587;
+                mm.Body = body;
+                mm.BodyEncoding = Encoding.UTF8;
+                mm.IsBodyHtml = true;
                 smtp.Send(mm);
             }
+
+            return Task.FromResult(0);
         }
 
         private string SaveFile(string path)

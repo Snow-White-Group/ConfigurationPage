@@ -5,24 +5,28 @@
 }
 
 <h2>Hello @Model.FirstName @Model.LastName !</h2>
-@if (Model.SpeechID.Equals(""))
+@if (Model.SpeechID == null || Model.SpeechID.Equals(""))
 {
-    <div class="jumbotron">
-        <p>You have to record your voice!</p>
-        <p></p>
-        <ol style="list-style-type: decimal">
-            <li>Check wheather your mirror is on</li>
-            <li>Press <button id="startRecording"><i class="btn btn-primary fa fa-microphone"></i></button> to start recording</li>
-            <li>Go to the mirror</li>
-            <li>There you will see a new window where you can record your voice.</li>
-        </ol>
-    </div>
+    <p>You have to record your voice!</p>
+    <p></p>
+    <ol style="list-style-type: decimal">
+        <li>Check wheather your mirror is on</li>
+        <li>Press <button class="btn btn-primary btn-circle" id="startRecording"><i class="fa fa-microphone"></i></button> to start recording</li>
+        <li>Go to the mirror</li>
+        <li>There you will see a new window where you can record your voice.</li>
+    </ol>
 }
 @section Scripts
 {   
 <script>
     $("#startRecording").on("click", function(){
-        @Url.Action("SetDesireRecord", "Configuration");
+        $.ajax({
+            url = '@Url.Action("SetDesireRecord", "Account")'
+        }).done(function (result) {
+            alert("Go to your mirror and record your voice!");
+        }).fail(function(result){
+            alert("error");
+        });
         toggelButton();
     });
 
