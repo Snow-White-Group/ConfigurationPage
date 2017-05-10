@@ -14,6 +14,7 @@ using System.Net.Mail;
 using System.Net;
 using System.Configuration;
 using System.Text;
+using UIConfiguration.Services;
 
 namespace UIConfiguration.Models
 {
@@ -44,6 +45,8 @@ namespace UIConfiguration.Models
 
         // check variable for the mirror to see when a user want to record his/her voice on the mirror
         private bool desireRecord = false;
+
+        private static SmtpClient smtpClient = new EmailService().smtpClient;
 
         public ApplicationSignInManager SignInManager
         {
@@ -144,12 +147,11 @@ namespace UIConfiguration.Models
                 // result = success?
                 if (result.Succeeded)
                 {
-                    SendVerificationEmail(user);
+                    await SendVerificationEmail(user);
                     return RedirectToAction("Index", "Home");
                 }
                 AddErrors(result);
             }
-
             return View(model);
         }
 
@@ -163,54 +165,14 @@ namespace UIConfiguration.Models
             return RedirectToAction("Index", "Home");
         }
 
+        // show view when user ís not verificated
         [AllowAnonymous]
         public ActionResult NotVerificated()
         {
             return View();
         }
 
-        private IAuthenticationManager AuthenticationManager
-        {
-            get
-            {
-                return HttpContext.GetOwinContext().Authentication;
-            }
-        }
-
-        private void AddErrors(IdentityResult result)
-        {
-            foreach (var error in result.Errors)
-            {
-                ModelState.AddModelError("", error);
-            }
-        }
-
-        private ActionResult RedirectToLocal(string returnUrl)
-        {
-            if (Url.IsLocalUrl(returnUrl))
-            {
-                return Redirect(returnUrl);
-            }
-            return RedirectToAction("Index", "Home");
-        }
-
-        public JsonResult SetDesireRecord()
-        {
-            this.desireRecord = !this.desireRecord;
-            return Json(this.desireRecord ? "success" : "failed", JsonRequestBehavior.AllowGet);
-        }
-
-        [AllowAnonymous]
-        public JsonResult DesireRecording()
-        {
-            if (this.desireRecord)
-            {
-                SetDesireRecord();
-                return Json(this.loggedInUser, JsonRequestBehavior.AllowGet);
-            }
-            return null;
-        }
-
+        // send verification email
         private Task SendVerificationEmail(SnowwhiteUser user)
         {
             SnowwhiteUser userForMail = loggedInUser ?? user;
@@ -221,22 +183,93 @@ namespace UIConfiguration.Models
 
             using (MailMessage mm = new MailMessage(ConfigurationManager.AppSettings["EmailAddress"], userForMail.Email))
             {
-                SmtpClient smtp = new SmtpClient();
-                smtp.Host = "smtp.web.de";
-                smtp.UseDefaultCredentials = true;
-                smtp.EnableSsl = true;
-                NetworkCredential NetworkCred = new NetworkCredential(ConfigurationManager.AppSettings["EmailAddress"].ToString(), ConfigurationManager.AppSettings["EmailPW"].ToString());
-                smtp.Credentials = NetworkCred;
-                smtp.Port = 587;
+                MailAddress sender = new MailAddress(ConfigurationManager.AppSettings["EmailAddress"], "Snowwhite-Team", Encoding.UTF8);
+                mm.Subject = "Verificatation for " + userForMail.FirstName + " " + userForMail.LastName;
+
                 mm.Body = body;
                 mm.BodyEncoding = Encoding.UTF8;
                 mm.IsBodyHtml = true;
-                smtp.Send(mm);
+
+                smtpClient.Send(mm);
             }
 
             return Task.FromResult(0);
         }
 
+        // on the verification mail the user  will be redirected to this method
+        public ActionResult Verify(string id)
+        {
+            SnowwhiteUser user = _dbContext.Users.FirstOrDefault(x => x.Id.Equals(id));
+            user.EmailConfirmed = true;
+            _dbContext.SaveChanges();
+
+            return RedirectToAction("Index", "Configuration");
+        }
+
+        // forgot password
+        [AllowAnonymous]
+        public ActionResult ForgotPassword()
+        {
+            return View();
+        }
+
+        public async Task<JsonResult> SendForgotPasswordMail(string email)
+        {
+            SnowwhiteUser userForMail = _dbContext.Users.FirstOrDefault(x => x.Email.Equals(email));
+            string body = "Hello " + userForMail.FirstName + " " + userForMail.LastName + "!";
+            body += "<br /><a href = '" + Url.Action("ResetPassword", "Account", new { id = userForMail.Id, forgot = true }) + "'>Click here to reset your password.</a>";
+            body += "<br /><br/> Your Snowwhite-Team";
+
+            using (MailMessage mm = new MailMessage(ConfigurationManager.AppSettings["EmailAddress"], userForMail.Email))
+            {
+                MailAddress sender = new MailAddress(ConfigurationManager.AppSettings["EmailAddress"], "Snowwhite-Team", Encoding.UTF8);
+                mm.Subject = "Resetting for " + userForMail.FirstName + " " + userForMail.LastName;
+
+                mm.Body = body;
+                mm.BodyEncoding = Encoding.UTF8;
+                mm.IsBodyHtml = true;
+
+                smtpClient.SendAsync(mm, userForMail.Id);
+            }
+            return Json(await Task.FromResult(0), JsonRequestBehavior.AllowGet);
+        }
+
+        public ActionResult ResetPassword(string id, bool forgot = false)
+        {
+            return View();
+        }
+
+        // this manager handels the authentication mecanism
+        private IAuthenticationManager AuthenticationManager
+        {
+            get
+            {
+                return HttpContext.GetOwinContext().Authentication;
+            }
+        }
+
+        
+
+        // set flag that a user wants to record
+        public JsonResult SetDesireRecord()
+        {
+            this.desireRecord = !this.desireRecord;
+            return Json(this.desireRecord ? "ready" : "stopped", JsonRequestBehavior.AllowGet);
+        }
+
+        // returns the user object as json object if a user wants to record on the mirror
+        [AllowAnonymous]
+        public JsonResult DesireRecording()
+        {
+            if (this.desireRecord)
+            {
+                SetDesireRecord();
+                return Json(this.loggedInUser, JsonRequestBehavior.AllowGet);
+            }
+            return Json(null, JsonRequestBehavior.AllowGet);
+        }
+
+        // saves the uploaded picture to ~/Content/Images/ProfilePictures
         private string SaveFile(string path)
         {
             if (path != null)
@@ -244,6 +277,7 @@ namespace UIConfiguration.Models
                 try
                 {
                     HttpPostedFileBase profileImage = Request.Files["thumbnail"];
+
                     string targetLocation = Server.MapPath("~/Content/Images/ProfilePictures/");
                     if (profileImage.ContentLength > 0)
                     {
@@ -263,10 +297,20 @@ namespace UIConfiguration.Models
                 }
                 catch (Exception e)
                 {
+                    AddErrors(new IdentityResult(e.Message));
                     return "";
                 }
             }
             return "";
+        }
+
+        // error conllection
+        private void AddErrors(IdentityResult result)
+        {
+            foreach (var error in result.Errors)
+            {
+                ModelState.AddModelError("", error);
+            }
         }
     }
 }

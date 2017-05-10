@@ -20,17 +20,26 @@
 {   
 <script>
     $("#startRecording").on("click", function(){
-        $.ajax({
-            url = '@Url.Action("SetDesireRecord", "Account")'
-        }).done(function (result) {
-            alert("Go to your mirror and record your voice!");
-        }).fail(function(result){
+        $.ajax
+        ({
+            url: '@Url.Action("SetDesireRecord", "Account")',
+            async: true
+        }).done(function (result)
+        {
+            var test;
+            if (result == "ready")
+            {
+                alert("Go to your mirror and record your voice!");
+            }
+        }).fail(function(result)
+        {
             alert("error");
         });
-        toggelButton();
+        toggleButton();
     });
 
-    function toggleButton(){
+    function toggleButton()
+    {
         var btn = $("#startRecording");
         if (btn.hasClass("btn-primary"))
         {
