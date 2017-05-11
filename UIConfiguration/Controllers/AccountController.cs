@@ -43,6 +43,7 @@ namespace UIConfiguration.Models
         // check variable for the mirror to see when a user want to record his/her voice on the mirror
         private bool desireRecord = false;
 
+        // smtp client for sending emails
         private static SmtpClient smtpClient = new EmailService().smtpClient;
 
         public ApplicationSignInManager SignInManager
@@ -152,8 +153,7 @@ namespace UIConfiguration.Models
             return View(model);
         }
 
-        //
-        // POST: /Account/LogOff
+        // log off mechanism
         [HttpPost]
         [ValidateAntiForgeryToken]
         public ActionResult LogOff()
@@ -232,6 +232,7 @@ namespace UIConfiguration.Models
             return Json(await Task.FromResult(0), JsonRequestBehavior.AllowGet);
         }
 
+        // show reset or forgot password form
         public ActionResult ResetPassword(string id, bool forgot = false)
         {
             if (forgot)
