@@ -20,9 +20,6 @@ namespace UIConfiguration.Models
 {
     /* TODO */
     /*
-        - verification mail does not work. Provider problem?
-        - need email adress for this!
-
         - passwort reset
 
         - forgot password | secret question?
@@ -46,6 +43,7 @@ namespace UIConfiguration.Models
         // check variable for the mirror to see when a user want to record his/her voice on the mirror
         private bool desireRecord = false;
 
+        // smtp client for sending emails
         private static SmtpClient smtpClient = new EmailService().smtpClient;
 
         public ApplicationSignInManager SignInManager
@@ -155,8 +153,7 @@ namespace UIConfiguration.Models
             return View(model);
         }
 
-        //
-        // POST: /Account/LogOff
+        // log off mechanism
         [HttpPost]
         [ValidateAntiForgeryToken]
         public ActionResult LogOff()
@@ -213,6 +210,7 @@ namespace UIConfiguration.Models
             return View();
         }
 
+        // send email to reset the password
         public async Task<JsonResult> SendForgotPasswordMail(string email)
         {
             SnowwhiteUser userForMail = _dbContext.Users.FirstOrDefault(x => x.Email.Equals(email));
@@ -234,8 +232,13 @@ namespace UIConfiguration.Models
             return Json(await Task.FromResult(0), JsonRequestBehavior.AllowGet);
         }
 
+        // show reset or forgot password form
         public ActionResult ResetPassword(string id, bool forgot = false)
         {
+            if (forgot)
+            {
+                return View("ForgotPassword");
+            }
             return View();
         }
 
@@ -247,8 +250,6 @@ namespace UIConfiguration.Models
                 return HttpContext.GetOwinContext().Authentication;
             }
         }
-
-        
 
         // set flag that a user wants to record
         public JsonResult SetDesireRecord()
@@ -281,15 +282,15 @@ namespace UIConfiguration.Models
                     string targetLocation = Server.MapPath("~/Content/Images/ProfilePictures/");
                     if (profileImage.ContentLength > 0)
                     {
-                        //Determining file name. You can format it as you wish.
+                        // determining file name. You can format it as you wish.
                         string FileName = profileImage.FileName;
-                        //Determining file size.
+                        // determining file size.
                         int FileSize = profileImage.ContentLength;
-                        //Creating a byte array corresponding to file size.
+                        // creating a byte array corresponding to file size.
                         byte[] FileByteArray = new byte[FileSize];
-                        //Posted file is being pushed into byte array.
+                        // posted file is being pushed into byte array.
                         profileImage.InputStream.Read(FileByteArray, 0, FileSize);
-                        //Uploading properly formatted file to server.
+                        // uploading properly formatted file to server.
                         profileImage.SaveAs(targetLocation + FileName);
 
                         return FileName;
