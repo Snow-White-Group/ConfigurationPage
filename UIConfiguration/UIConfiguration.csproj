@@ -226,11 +226,15 @@
     <Content Include="Content\bootstrap.min.css" />
     <Content Include="Content\font-awesome.css" />
     <Content Include="Content\font-awesome.min.css" />
+    <Content Include="Content\Images\snowwhite-logo.png" />
+    <Content Include="Content\Images\snowwhite-logo_16x16.png" />
+    <Content Include="Content\Images\snowwhite-logo_32x32.png" />
+    <Content Include="Content\Images\snowwhite-logo_64x64.png" />
+    <Content Include="Content\Images\snowwhite-logo_8x8.png" />
     <Content Include="Content\Images\Team\cem.png" />
     <Content Include="Content\Images\Team\domi.png" />
     <Content Include="Content\Images\Team\marc.png" />
     <Content Include="Content\Images\Team\mario.png" />
-    <Content Include="Content\Images\snowwhite.jpg" />
     <Content Include="favicon.ico" />
     <Content Include="fonts\fontawesome-webfont.svg" />
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
@@ -287,7 +291,6 @@
     <Content Include="Views\Home\Index.cshtml" />
     <Content Include="Views\Account\ConfirmEmail.cshtml" />
     <Content Include="Views\Account\ForgotPassword.cshtml" />
-    <Content Include="Views\Account\ForgotPasswordConfirmation.cshtml" />
     <Content Include="Views\Account\Login.cshtml" />
     <Content Include="Views\Account\Register.cshtml" />
     <Content Include="Views\Account\ResetPassword.cshtml" />
