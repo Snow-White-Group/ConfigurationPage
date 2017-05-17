@@ -24,7 +24,24 @@ namespace UIConfiguration
                       "~/Scripts/respond.js"));
 
             bundles.Add(new ScriptBundle("~/bundles/materialize").Include(
-                    "~/Scripts/materialize/materialize.js"
+                    "~/Scripts/materialize/materialize.js"));
+
+            bundles.Add(new ScriptBundle("~/bundles/REDIPS_drag").Include(
+                    "~/Scripts/REDIPS_drag/header.js",
+                    "~/Scripts/REDIPS_drag/redips-drag-min.js",
+                    "~/Scripts/REDIPS_drag/script.js"
+                ));
+
+            bundles.Add(new ScriptBundle("~/bundles/gridstack").Include(
+                    "~/Scripts/gridstack/lodash.js",
+                    "~/Scripts/gridstack/gridstack.js",
+                    "~/Scripts/gridstack/gridstack.jQueryUI.js",
+                    "~/Content/gridstack/anijs-master/anijs-min.js"
+                ));
+
+            bundles.Add(new StyleBundle("~/Content/gridstack").Include(
+                    "~/Content/gridstack/gridstack.css",
+                    "~/Content/gridstack/anicollection.css"
                 ));
 
             bundles.Add(new StyleBundle("~/Content/css").Include(
@@ -32,6 +49,9 @@ namespace UIConfiguration
                       "~/Content/site.css",
                       "~/Content/font-awesome.css",
                       "~/Content/materialize/css/materialize.css"));
+
+            bundles.Add(new StyleBundle("~/Content/REDIPS").Include(
+                "~/Content/REDIPS/REDIPS.css"));
         }
     }
 }

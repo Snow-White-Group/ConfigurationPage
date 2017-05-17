@@ -4,6 +4,20 @@
     ViewBag.Title = "Mirror-Configuration";
 }
 
+@Styles.Render("~/gridstack")
+
+<style type="text/css">
+    .grid-stack {
+        background: lightgoldenrodyellow;
+    }
+
+    .grid-stack-item-content {
+        color: #2c3e50;
+        text-align: center;
+        background-color: #18bc9c;
+    }
+</style>
+
 <h2>Hello @Model.FirstName @Model.LastName !</h2>
 @if (Model.SpeechID == null || Model.SpeechID.Equals(""))
 {
@@ -16,9 +30,88 @@
         <li>There you will see a new window where you can record your voice.</li>
     </ol>
 }
+
+<div class="container-fluid">
+    <h1>AniJS demo</h1>
+
+    <div>
+        <a class="btn btn-default" id="add-widget" href="#">Add Widget</a>
+    </div>
+
+    <div>
+        <h4>Widget added</h4>
+    </div>
+
+    <br />
+
+    <div class="grid-stack">
+    </div>
+</div>
+
+@* redips
+    <div id="redips-drag">
+        <table>
+            <colgroup>
+                <col width="100" />
+                <col width="100" />
+                <col width="100" />
+            </colgroup>
+            <tbody>
+                <tr>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                </tr>
+                <tr>
+                    <td></td>
+                    <td><div class="redips-drag">Hello World!</div></td>
+                    <td></td>
+                </tr>
+                <tr>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+    @Scripts.Render("~/bundles/REDIPS_drag")*@
+    @Scripts.Render("~/bundles/gridstack")
 @section Scripts
 {   
 <script>
+
+    $(document).ready(function () {
+        $('.grid-stack').gridstack();
+        var self = this;
+        this.grid = $('.grid-stack').data('gridstack');
+        $('.grid-stack').on('added', function (event, items) {
+            // add anijs data to gridstack item
+            for (var i = 0; i < items.length; i++) {
+                $(items[i].el[0]).attr('data-anijs', 'if: added, do: swing animated, after: $removeAnimations, on: $gridstack');
+            }
+            AniJS.run();
+            self.gridstackNotifier = AniJS.getNotifier('gridstack');
+            // fire added event!
+            self.gridstackNotifier.dispatchEvent('added');
+        });
+        $('#add-widget').click(function () {
+            addNewWidget();
+        });
+
+        function addNewWidget() {
+            var grid = $('.grid-stack').data('gridstack');
+            grid.addWidget($('<div><div class="grid-stack-item-content"></div></div>'), 0, 0, Math.floor(1 + 3 * Math.random()), Math.floor(1 + 3 * Math.random()), true);
+        }
+
+        var animationHelper = AniJS.getHelper();
+
+        //Defining removeAnimations to remove existing animations
+        animationHelper.removeAnimations = function (e, animationContext) {
+            $('.grid-stack-item').attr('data-anijs', '');
+        };
+    });
+
     $("#startRecording").on("click", function(){
         $.ajax
         ({
