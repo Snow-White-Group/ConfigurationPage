@@ -38,7 +38,7 @@ namespace UIConfiguration
                     "~/Scripts/gridstack/lodash.js",
                     "~/Scripts/gridstack/gridstack.js",
                     "~/Scripts/gridstack/gridstack.jQueryUI.js",
-                    "~/Content/gridstack/anijs-master/anijs-min.js"
+                    "~/Content/gridstack/anijs-master/src/anijs.js"
                 ));
 
             bundles.Add(new StyleBundle("~/Content/gridstack").Include(
