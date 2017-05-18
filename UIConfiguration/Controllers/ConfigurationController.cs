@@ -16,7 +16,11 @@ namespace UIConfiguration.Controllers
 
         public ActionResult Index(string id)
         {
-            loggedInUser = _dbContext.Users.Find(id);
+            if (id.Equals(""))
+            {
+                loggedInUser = _dbContext.Users.Find(id);
+            }
+            
             return View(loggedInUser);
         }
 
