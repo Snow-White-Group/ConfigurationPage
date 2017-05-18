@@ -491,10 +491,10 @@
      */
     function apply(func, thisArg, args) {
         switch (args.length) {
-            case 0: return func.call(thisArg);
-            case 1: return func.call(thisArg, args[0]);
-            case 2: return func.call(thisArg, args[0], args[1]);
-            case 3: return func.call(thisArg, args[0], args[1], args[2]);
+        case 0: return func.call(thisArg);
+        case 1: return func.call(thisArg, args[0]);
+        case 2: return func.call(thisArg, args[0], args[1]);
+        case 3: return func.call(thisArg, args[0], args[1], args[2]);
         }
         return func.apply(thisArg, args);
     }
@@ -1477,7 +1477,7 @@
         /** Used to detect if a method is native. */
         var reIsNative = RegExp('^' +
             funcToString.call(hasOwnProperty).replace(reRegExpChar, '\\$&')
-                .replace(/hasOwnProperty|(function).*?(?=\\\()| for .+?(?=\\\])/g, '$1.*?') + '$'
+            .replace(/hasOwnProperty|(function).*?(?=\\\()| for .+?(?=\\\])/g, '$1.*?') + '$'
         );
 
         /** Built-in value references. */
@@ -1882,30 +1882,30 @@
             var result = [];
 
             outer:
-            while (length-- && resIndex < takeCount) {
-                index += dir;
+                while (length-- && resIndex < takeCount) {
+                    index += dir;
 
-                var iterIndex = -1,
-                    value = array[index];
+                    var iterIndex = -1,
+                        value = array[index];
 
-                while (++iterIndex < iterLength) {
-                    var data = iteratees[iterIndex],
-                        iteratee = data.iteratee,
-                        type = data.type,
-                        computed = iteratee(value);
+                    while (++iterIndex < iterLength) {
+                        var data = iteratees[iterIndex],
+                            iteratee = data.iteratee,
+                            type = data.type,
+                            computed = iteratee(value);
 
-                    if (type == LAZY_MAP_FLAG) {
-                        value = computed;
-                    } else if (!computed) {
-                        if (type == LAZY_FILTER_FLAG) {
-                            continue outer;
-                        } else {
-                            break outer;
+                        if (type == LAZY_MAP_FLAG) {
+                            value = computed;
+                        } else if (!computed) {
+                            if (type == LAZY_FILTER_FLAG) {
+                                continue outer;
+                            } else {
+                                break outer;
+                            }
                         }
                     }
+                    result[resIndex++] = value;
                 }
-                result[resIndex++] = value;
-            }
             return result;
         }
 
@@ -2415,12 +2415,12 @@
                     !(skipIndexes && (
                         // Safari 9 has enumerable `arguments.length` in strict mode.
                         key == 'length' ||
-                        // Node.js 0.10 has enumerable non-index properties on buffers.
-                        (isBuff && (key == 'offset' || key == 'parent')) ||
-                        // PhantomJS 2 has enumerable non-index properties on typed arrays.
-                        (isType && (key == 'buffer' || key == 'byteLength' || key == 'byteOffset')) ||
-                        // Skip index properties.
-                        isIndex(key, length)
+                            // Node.js 0.10 has enumerable non-index properties on buffers.
+                            (isBuff && (key == 'offset' || key == 'parent')) ||
+                            // PhantomJS 2 has enumerable non-index properties on typed arrays.
+                            (isType && (key == 'buffer' || key == 'byteLength' || key == 'byteOffset')) ||
+                            // Skip index properties.
+                            isIndex(key, length)
                     ))) {
                     result.push(key);
                 }
@@ -2796,24 +2796,24 @@
                 values = new SetCache(values);
             }
             outer:
-            while (++index < length) {
-                var value = array[index],
-                    computed = iteratee == null ? value : iteratee(value);
+                while (++index < length) {
+                    var value = array[index],
+                        computed = iteratee == null ? value : iteratee(value);
 
-                value = (comparator || value !== 0) ? value : 0;
-                if (isCommon && computed === computed) {
-                    var valuesIndex = valuesLength;
-                    while (valuesIndex--) {
-                        if (values[valuesIndex] === computed) {
-                            continue outer;
+                    value = (comparator || value !== 0) ? value : 0;
+                    if (isCommon && computed === computed) {
+                        var valuesIndex = valuesLength;
+                        while (valuesIndex--) {
+                            if (values[valuesIndex] === computed) {
+                                continue outer;
+                            }
                         }
+                        result.push(value);
                     }
-                    result.push(value);
+                    else if (!includes(values, computed, comparator)) {
+                        result.push(value);
+                    }
                 }
-                else if (!includes(values, computed, comparator)) {
-                    result.push(value);
-                }
-            }
             return result;
         }
 
@@ -3165,31 +3165,31 @@
                 seen = caches[0];
 
             outer:
-            while (++index < length && result.length < maxLength) {
-                var value = array[index],
-                    computed = iteratee ? iteratee(value) : value;
+                while (++index < length && result.length < maxLength) {
+                    var value = array[index],
+                        computed = iteratee ? iteratee(value) : value;
 
-                value = (comparator || value !== 0) ? value : 0;
-                if (!(seen
-                    ? cacheHas(seen, computed)
-                    : includes(result, computed, comparator)
-                )) {
-                    othIndex = othLength;
-                    while (--othIndex) {
-                        var cache = caches[othIndex];
-                        if (!(cache
-                            ? cacheHas(cache, computed)
-                            : includes(arrays[othIndex], computed, comparator))
-                        ) {
-                            continue outer;
+                    value = (comparator || value !== 0) ? value : 0;
+                    if (!(seen
+                        ? cacheHas(seen, computed)
+                        : includes(result, computed, comparator)
+                    )) {
+                        othIndex = othLength;
+                        while (--othIndex) {
+                            var cache = caches[othIndex];
+                            if (!(cache
+                                ? cacheHas(cache, computed)
+                                : includes(arrays[othIndex], computed, comparator))
+                            ) {
+                                continue outer;
+                            }
                         }
+                        if (seen) {
+                            seen.push(computed);
+                        }
+                        result.push(value);
                     }
-                    if (seen) {
-                        seen.push(computed);
-                    }
-                    result.push(value);
                 }
-            }
             return result;
         }
 
@@ -4282,30 +4282,30 @@
                 seen = iteratee ? [] : result;
             }
             outer:
-            while (++index < length) {
-                var value = array[index],
-                    computed = iteratee ? iteratee(value) : value;
+                while (++index < length) {
+                    var value = array[index],
+                        computed = iteratee ? iteratee(value) : value;
 
-                value = (comparator || value !== 0) ? value : 0;
-                if (isCommon && computed === computed) {
-                    var seenIndex = seen.length;
-                    while (seenIndex--) {
-                        if (seen[seenIndex] === computed) {
-                            continue outer;
+                    value = (comparator || value !== 0) ? value : 0;
+                    if (isCommon && computed === computed) {
+                        var seenIndex = seen.length;
+                        while (seenIndex--) {
+                            if (seen[seenIndex] === computed) {
+                                continue outer;
+                            }
                         }
+                        if (iteratee) {
+                            seen.push(computed);
+                        }
+                        result.push(value);
                     }
-                    if (iteratee) {
-                        seen.push(computed);
+                    else if (!includes(seen, computed, comparator)) {
+                        if (seen !== result) {
+                            seen.push(computed);
+                        }
+                        result.push(value);
                     }
-                    result.push(value);
                 }
-                else if (!includes(seen, computed, comparator)) {
-                    if (seen !== result) {
-                        seen.push(computed);
-                    }
-                    result.push(value);
-                }
-            }
             return result;
         }
 
@@ -5025,14 +5025,14 @@
                 // for more details.
                 var args = arguments;
                 switch (args.length) {
-                    case 0: return new Ctor;
-                    case 1: return new Ctor(args[0]);
-                    case 2: return new Ctor(args[0], args[1]);
-                    case 3: return new Ctor(args[0], args[1], args[2]);
-                    case 4: return new Ctor(args[0], args[1], args[2], args[3]);
-                    case 5: return new Ctor(args[0], args[1], args[2], args[3], args[4]);
-                    case 6: return new Ctor(args[0], args[1], args[2], args[3], args[4], args[5]);
-                    case 7: return new Ctor(args[0], args[1], args[2], args[3], args[4], args[5], args[6]);
+                case 0: return new Ctor;
+                case 1: return new Ctor(args[0]);
+                case 2: return new Ctor(args[0], args[1]);
+                case 3: return new Ctor(args[0], args[1], args[2]);
+                case 4: return new Ctor(args[0], args[1], args[2], args[3]);
+                case 5: return new Ctor(args[0], args[1], args[2], args[3], args[4]);
+                case 6: return new Ctor(args[0], args[1], args[2], args[3], args[4], args[5]);
+                case 7: return new Ctor(args[0], args[1], args[2], args[3], args[4], args[5], args[6]);
                 }
                 var thisBinding = baseCreate(Ctor.prototype),
                     result = Ctor.apply(thisBinding, args);
@@ -5699,7 +5699,7 @@
                     }
                 } else if (!(
                     arrValue === othValue ||
-                    equalFunc(arrValue, othValue, bitmask, customizer, stack)
+                        equalFunc(arrValue, othValue, bitmask, customizer, stack)
                 )) {
                     result = false;
                     break;
@@ -5729,65 +5729,65 @@
          */
         function equalByTag(object, other, tag, bitmask, customizer, equalFunc, stack) {
             switch (tag) {
-                case dataViewTag:
-                    if ((object.byteLength != other.byteLength) ||
-                        (object.byteOffset != other.byteOffset)) {
-                        return false;
-                    }
-                    object = object.buffer;
-                    other = other.buffer;
+            case dataViewTag:
+                if ((object.byteLength != other.byteLength) ||
+                    (object.byteOffset != other.byteOffset)) {
+                    return false;
+                }
+                object = object.buffer;
+                other = other.buffer;
 
-                case arrayBufferTag:
-                    if ((object.byteLength != other.byteLength) ||
-                        !equalFunc(new Uint8Array(object), new Uint8Array(other))) {
-                        return false;
-                    }
-                    return true;
+            case arrayBufferTag:
+                if ((object.byteLength != other.byteLength) ||
+                    !equalFunc(new Uint8Array(object), new Uint8Array(other))) {
+                    return false;
+                }
+                return true;
 
-                case boolTag:
-                case dateTag:
-                case numberTag:
-                    // Coerce booleans to `1` or `0` and dates to milliseconds.
-                    // Invalid dates are coerced to `NaN`.
-                    return eq(+object, +other);
+            case boolTag:
+            case dateTag:
+            case numberTag:
+                // Coerce booleans to `1` or `0` and dates to milliseconds.
+                // Invalid dates are coerced to `NaN`.
+                return eq(+object, +other);
 
-                case errorTag:
-                    return object.name == other.name && object.message == other.message;
+            case errorTag:
+                return object.name == other.name && object.message == other.message;
 
-                case regexpTag:
-                case stringTag:
-                    // Coerce regexes to strings and treat strings, primitives and objects,
-                    // as equal. See http://www.ecma-international.org/ecma-262/7.0/#sec-regexp.prototype.tostring
-                    // for more details.
-                    return object == (other + '');
+            case regexpTag:
+            case stringTag:
+                // Coerce regexes to strings and treat strings, primitives and objects,
+                // as equal. See http://www.ecma-international.org/ecma-262/7.0/#sec-regexp.prototype.tostring
+                // for more details.
+                return object == (other + '');
 
-                case mapTag:
-                    var convert = mapToArray;
+            case mapTag:
+                var convert = mapToArray;
 
-                case setTag:
-                    var isPartial = bitmask & COMPARE_PARTIAL_FLAG;
-                    convert || (convert = setToArray);
+            case setTag:
+                var isPartial = bitmask & COMPARE_PARTIAL_FLAG;
+                convert || (convert = setToArray);
 
-                    if (object.size != other.size && !isPartial) {
-                        return false;
-                    }
-                    // Assume cyclic values are equal.
-                    var stacked = stack.get(object);
-                    if (stacked) {
-                        return stacked == other;
-                    }
-                    bitmask |= COMPARE_UNORDERED_FLAG;
+                if (object.size != other.size && !isPartial) {
+                    return false;
+                }
+                // Assume cyclic values are equal.
+                var stacked = stack.get(object);
+                if (stacked) {
+                    return stacked == other;
+                }
+                bitmask |= COMPARE_UNORDERED_FLAG;
 
-                    // Recursively compare objects (susceptible to call stack limits).
-                    stack.set(object, other);
-                    var result = equalArrays(convert(object), convert(other), bitmask, customizer, equalFunc, stack);
-                    stack['delete'](object);
-                    return result;
+                // Recursively compare objects (susceptible to call stack limits).
+                stack.set(object, other);
+                var result = equalArrays(convert(object), convert(other), bitmask, customizer, equalFunc, stack);
+                stack['delete'](object);
+                return result;
 
-                case symbolTag:
-                    if (symbolValueOf) {
-                        return symbolValueOf.call(object) == symbolValueOf.call(other);
-                    }
+            case symbolTag:
+                if (symbolValueOf) {
+                    return symbolValueOf.call(object) == symbolValueOf.call(other);
+                }
             }
             return false;
         }
@@ -6095,11 +6095,11 @@
 
                 if (ctorString) {
                     switch (ctorString) {
-                        case dataViewCtorString: return dataViewTag;
-                        case mapCtorString: return mapTag;
-                        case promiseCtorString: return promiseTag;
-                        case setCtorString: return setTag;
-                        case weakMapCtorString: return weakMapTag;
+                    case dataViewCtorString: return dataViewTag;
+                    case mapCtorString: return mapTag;
+                    case promiseCtorString: return promiseTag;
+                    case setCtorString: return setTag;
+                    case weakMapCtorString: return weakMapTag;
                     }
                 }
                 return result;
@@ -6125,10 +6125,10 @@
                     size = data.size;
 
                 switch (data.type) {
-                    case 'drop': start += size; break;
-                    case 'dropRight': end -= size; break;
-                    case 'take': end = nativeMin(end, start + size); break;
-                    case 'takeRight': start = nativeMax(start, end - size); break;
+                case 'drop': start += size; break;
+                case 'dropRight': end -= size; break;
+                case 'take': end = nativeMin(end, start + size); break;
+                case 'takeRight': start = nativeMax(start, end - size); break;
                 }
             }
             return { 'start': start, 'end': end };
@@ -6225,36 +6225,36 @@
         function initCloneByTag(object, tag, cloneFunc, isDeep) {
             var Ctor = object.constructor;
             switch (tag) {
-                case arrayBufferTag:
-                    return cloneArrayBuffer(object);
+            case arrayBufferTag:
+                return cloneArrayBuffer(object);
 
-                case boolTag:
-                case dateTag:
-                    return new Ctor(+object);
+            case boolTag:
+            case dateTag:
+                return new Ctor(+object);
 
-                case dataViewTag:
-                    return cloneDataView(object, isDeep);
+            case dataViewTag:
+                return cloneDataView(object, isDeep);
 
-                case float32Tag: case float64Tag:
-                case int8Tag: case int16Tag: case int32Tag:
-                case uint8Tag: case uint8ClampedTag: case uint16Tag: case uint32Tag:
-                    return cloneTypedArray(object, isDeep);
+            case float32Tag: case float64Tag:
+            case int8Tag: case int16Tag: case int32Tag:
+            case uint8Tag: case uint8ClampedTag: case uint16Tag: case uint32Tag:
+                return cloneTypedArray(object, isDeep);
 
-                case mapTag:
-                    return cloneMap(object, isDeep, cloneFunc);
+            case mapTag:
+                return cloneMap(object, isDeep, cloneFunc);
 
-                case numberTag:
-                case stringTag:
-                    return new Ctor(object);
+            case numberTag:
+            case stringTag:
+                return new Ctor(object);
 
-                case regexpTag:
-                    return cloneRegExp(object);
+            case regexpTag:
+                return cloneRegExp(object);
 
-                case setTag:
-                    return cloneSet(object, isDeep, cloneFunc);
+            case setTag:
+                return cloneSet(object, isDeep, cloneFunc);
 
-                case symbolTag:
-                    return cloneSymbol(object);
+            case symbolTag:
+                return cloneSymbol(object);
             }
         }
 
@@ -6494,8 +6494,8 @@
 
             var isCombo =
                 ((srcBitmask == WRAP_ARY_FLAG) && (bitmask == WRAP_CURRY_FLAG)) ||
-                ((srcBitmask == WRAP_ARY_FLAG) && (bitmask == WRAP_REARG_FLAG) && (data[7].length <= source[8])) ||
-                ((srcBitmask == (WRAP_ARY_FLAG | WRAP_REARG_FLAG)) && (source[7].length <= source[8]) && (bitmask == WRAP_CURRY_FLAG));
+                    ((srcBitmask == WRAP_ARY_FLAG) && (bitmask == WRAP_REARG_FLAG) && (data[7].length <= source[8])) ||
+                    ((srcBitmask == (WRAP_ARY_FLAG | WRAP_REARG_FLAG)) && (source[7].length <= source[8]) && (bitmask == WRAP_CURRY_FLAG));
 
             // Exit early if metadata can't be merged.
             if (!(isCommon || isCombo)) {
@@ -10601,10 +10601,10 @@
             return function () {
                 var args = arguments;
                 switch (args.length) {
-                    case 0: return !predicate.call(this);
-                    case 1: return !predicate.call(this, args[0]);
-                    case 2: return !predicate.call(this, args[0], args[1]);
-                    case 3: return !predicate.call(this, args[0], args[1], args[2]);
+                case 0: return !predicate.call(this);
+                case 1: return !predicate.call(this, args[0]);
+                case 2: return !predicate.call(this, args[0], args[1]);
+                case 3: return !predicate.call(this, args[0], args[1], args[2]);
                 }
                 return !predicate.apply(this, args);
             };
@@ -11495,8 +11495,8 @@
                 return true;
             }
             if (isArrayLike(value) &&
-                (isArray(value) || typeof value == 'string' || typeof value.splice == 'function' ||
-                    isBuffer(value) || isTypedArray(value) || isArguments(value))) {
+            (isArray(value) || typeof value == 'string' || typeof value.splice == 'function' ||
+                isBuffer(value) || isTypedArray(value) || isArguments(value))) {
                 return !value.length;
             }
             var tag = getTag(value);
@@ -14357,8 +14357,8 @@
             var mid = (length - strLength) / 2;
             return (
                 createPadding(nativeFloor(mid), chars) +
-                string +
-                createPadding(nativeCeil(mid), chars)
+                    string +
+                    createPadding(nativeCeil(mid), chars)
             );
         }
 
@@ -14573,7 +14573,7 @@
             string = toString(string);
             if (string && (
                 typeof separator == 'string' ||
-                (separator != null && !isRegExp(separator))
+                    (separator != null && !isRegExp(separator))
             )) {
                 separator = baseToString(separator);
                 if (!separator && hasUnicode(string)) {
@@ -14777,10 +14777,10 @@
 
             // Use a sourceURL for easier debugging.
             var sourceURL = '//# sourceURL=' +
-                ('sourceURL' in options
-                    ? options.sourceURL
-                    : ('lodash.templateSources[' + (++templateCounter) + ']')
-                ) + '\n';
+            ('sourceURL' in options
+                ? options.sourceURL
+                : ('lodash.templateSources[' + (++templateCounter) + ']')
+            ) + '\n';
 
             string.replace(reDelimiters, function (match, escapeValue, interpolateValue, esTemplateValue, evaluateValue, offset) {
                 interpolateValue || (interpolateValue = esTemplateValue);
