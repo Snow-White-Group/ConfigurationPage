@@ -278,7 +278,7 @@ namespace UIConfiguration.Models
                 try
                 {
                     HttpPostedFileBase profileImage = Request.Files["thumbnail"];
-
+                    
                     string targetLocation = Server.MapPath("~/Content/Images/ProfilePictures/");
                     if (profileImage.ContentLength > 0)
                     {
