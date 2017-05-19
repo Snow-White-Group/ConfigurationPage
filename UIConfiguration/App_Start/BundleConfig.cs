@@ -11,50 +11,44 @@ namespace UIConfiguration
             BundleTable.EnableOptimizations = false;
 
             bundles.Add(new ScriptBundle("~/bundles/jquery").Include(
-                        "~/Scripts/jquery-{version}.js"));
+                        "~/Scripts/jquery-{version}.js"
+                ));
 
             bundles.Add(new ScriptBundle("~/bundles/jqueryval").Include(
-                        "~/Scripts/jquery.validate*"));
+                        "~/Scripts/jquery.validate*"
+                ));
 
             // Verwenden Sie die Entwicklungsversion von Modernizr zum Entwickeln und Erweitern Ihrer Kenntnisse. Wenn Sie dann
             // ready for production, use the build tool at https://modernizr.com to pick only the tests you need.
             bundles.Add(new ScriptBundle("~/bundles/modernizr").Include(
-                        "~/Scripts/modernizr-*"));
+                        "~/Scripts/modernizr-*"
+                ));
 
             bundles.Add(new ScriptBundle("~/bundles/bootstrap").Include(
                       "~/Scripts/bootstrap.js",
-                      "~/Scripts/respond.js"));
+                      "~/Scripts/respond.js"
+                ));
 
             bundles.Add(new ScriptBundle("~/bundles/materialize").Include(
-                    "~/Scripts/materialize/materialize.js"));
-
-            bundles.Add(new ScriptBundle("~/bundles/REDIPS_drag").Include(
-                    "~/Scripts/REDIPS_drag/header.js",
-                    "~/Scripts/REDIPS_drag/redips-drag-min.js",
-                    "~/Scripts/REDIPS_drag/script.js"
+                    "~/Scripts/materialize/materialize.js"
                 ));
 
-            bundles.Add(new ScriptBundle("~/bundles/gridstack").Include(
-                    "~/Scripts/gridstack/lodash.js",
-                    "~/Scripts/gridstack/gridstack.js",
-                    "~/Scripts/gridstack/gridstack.jQueryUI.js",
-                    "~/Content/gridstack/anijs-master/src/anijs.js",
-                    "~/Scripts/jquery-ui-{version}.js"
+
+            bundles.Add(new ScriptBundle("~/bundles/gridster").Include(
+                    "~/Scripts/jquery.gridster.js"
                 ));
 
-            bundles.Add(new StyleBundle("~/Content/gridstack").Include(
-                    "~/Content/gridstack/gridstack.css",
-                    "~/Content/gridstack/anicollection.css"
+            bundles.Add(new StyleBundle("~/Content/gridster").Include(
+                    "~/Content/jquery.gridster.css"
                 ));
 
             bundles.Add(new StyleBundle("~/Content/css").Include(
                       "~/Content/bootstrap.css",
                       "~/Content/site.css",
                       "~/Content/font-awesome.css",
-                      "~/Content/materialize/css/materialize.css"));
+                      "~/Content/materialize/css/materialize.css"
+                 ));
 
-            bundles.Add(new StyleBundle("~/Content/REDIPS").Include(
-                "~/Content/REDIPS/REDIPS.css"));
         }
     }
 }
