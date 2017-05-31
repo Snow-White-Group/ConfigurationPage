@@ -92,14 +92,15 @@ namespace UIConfiguration.Models
             {
                 return View(model);
             }
-
-            var result = await SignInManager.PasswordSignInAsync(model.Email, model.Password, model.RememberMe, shouldLockout: false);
+            var result = await SignInManager.PasswordSignInAsync(model.Email, model.Password, false/*model.RememberMe*/, shouldLockout: false);
 
             switch (result)
             {
                 case SignInStatus.Success:
+                    SnowwhiteUser loggedIn = _dbContext.Users.FirstOrDefault(x => x.Email.Equals(model.Email));
+                    //var identity = await UserManager.CreateIdentityAsync(loggedIn, DefaultAuthenticationTypes.ApplicationCookie); 
                     this.loggedInUser = this._dbContext.Users.FirstOrDefault(x => x.Email.Equals(model.Email));
-                    return RedirectToAction("Index", "Configuration", new { id = this.loggedInUser.Id });
+                    return RedirectToAction("Index", "Configuration");
                 case SignInStatus.RequiresVerification:
                     return RedirectToAction("NotVerficated","Account");
                 case SignInStatus.Failure:
@@ -174,7 +175,8 @@ namespace UIConfiguration.Models
         {
             SnowwhiteUser userForMail = loggedInUser ?? user;
             string body = "Hello " + userForMail.FirstName + " " + userForMail.LastName + "!";
-            body += "<br /><a href = '" + Url.Action("Verify", "Account", new { id = userForMail.Id }) + "'>Click here to activate your account.</a>";
+            //body += "<br /><a href = '" + Url.Action("Verify", "Account", new { id = userForMail.Id }) + "'>Click here to activate your account.</a>";
+            body += "<br /><a href = 'http://snowwhite-configurationpage.azurewebsites.net/Account/Verify?id=" + userForMail.Id +"'>Click here to activate your account.</a>";
             body += "<br /><br/> Thank you and have fun with enjoying your smart mirror!";
             body += "<br /><br/> Your Snowwhite-Team";
 
@@ -215,7 +217,8 @@ namespace UIConfiguration.Models
         {
             SnowwhiteUser userForMail = _dbContext.Users.FirstOrDefault(x => x.Email.Equals(email));
             string body = "Hello " + userForMail.FirstName + " " + userForMail.LastName + "!";
-            body += "<br /><a href = '" + Url.Action("ResetPassword", "Account", new { id = userForMail.Id, forgot = true }) + "'>Click here to reset your password.</a>";
+            //body += "<br /><a href = '" + Url.Action("ResetPassword", "Account", new { id = userForMail.Id, forgot = true }) + "'>Click here to reset your password.</a>";
+            body += "<br /><a href = 'http://snowwhite-configurationpage.azurewebsites.net/Account/ResetPassword?id=" + userForMail.Id + "&forgot=true'>Click here to reset your password.</a>";
             body += "<br /><br/> Your Snowwhite-Team";
 
             using (MailMessage mm = new MailMessage(ConfigurationManager.AppSettings["EmailAddress"], userForMail.Email))

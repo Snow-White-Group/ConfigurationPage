@@ -1,7 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
+﻿using Microsoft.AspNet.Identity;
 using System.Web.Mvc;
 using UIConfiguration.Models;
 
@@ -12,11 +9,14 @@ namespace UIConfiguration.Controllers
     {
         private ApplicationDbContext _dbContext = new ApplicationDbContext();
 
-        private SnowwhiteUser loggedInUser = null;
+        private SnowwhiteUser loggedInUser;
 
-        public ActionResult Index(string id)
+        public ActionResult Index()
         {
-            this.loggedInUser = _dbContext.Users.Find(id);
+            if (this.loggedInUser == null)
+            {
+                this.loggedInUser = _dbContext.Users.Find(User.Identity.GetUserId());
+            }
             
             return View(this.loggedInUser);
         }
