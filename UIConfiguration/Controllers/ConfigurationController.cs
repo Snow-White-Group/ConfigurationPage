@@ -7,9 +7,9 @@ namespace UIConfiguration.Controllers
     [Authorize]
     public class ConfigurationController : Controller
     {
-        private ApplicationDbContext _dbContext = new ApplicationDbContext();
+        private static ApplicationDbContext _dbContext = new ApplicationDbContext();
 
-        private SnowwhiteUser loggedInUser;
+        private SnowwhiteUser loggedInUser = null;
 
         public ActionResult Index()
         {
@@ -17,11 +17,22 @@ namespace UIConfiguration.Controllers
             {
                 this.loggedInUser = _dbContext.Users.Find(User.Identity.GetUserId());
             }
-            
+
+            // get all mirrors and send viewmodel with user and mirrors
             return View(this.loggedInUser);
         }
 
-        [Authorize]
+        
+        public ActionResult ConfigurateMirror(string id)
+        {
+            return View();
+        }
+        
+        public ActionResult AddMirror()
+        {
+            return View();
+        }
+        
         public ActionResult ShowProfile()
         {
             return View(loggedInUser);

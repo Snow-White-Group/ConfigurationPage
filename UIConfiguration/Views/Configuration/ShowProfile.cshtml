@@ -1,7 +1,13 @@
-﻿
-@{
-    ViewBag.Title = "ShowProfile";
-}
+﻿@using UIConfiguration.Models
+@model SnowwhiteUser
 
-<h2>@ViewBag.Title</h2>
+<h2>@Model.FirstName 's Profile</h2>
 
+<table>
+    <tr>
+        <td><img src="@Model.Thumbnail ?? ~/Content/Images/ProfileImages/no-image.png" /></td>@*change image button*@
+        <td>@Model.FirstName @Model.LastName</td>
+        <td><a href="@Url.Action("ResetPassword","Account", new { id = Model.Id })>Reset password</a></td>
+        <td></td>
+    </tr>
+</table>

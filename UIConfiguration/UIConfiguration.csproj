@@ -419,6 +419,7 @@
     <Content Include="Views\Configuration\Index.cshtml" />
     <Content Include="Views\Account\NotVerificated.cshtml" />
     <Content Include="Views\Configuration\ShowProfile.cshtml" />
+    <Content Include="Views\Configuration\MirrorConfiguration.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

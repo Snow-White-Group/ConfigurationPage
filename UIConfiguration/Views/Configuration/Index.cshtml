@@ -1,128 +1,17 @@
 ﻿@using UIConfiguration.Models
-@model SnowwhiteUser
-@{
-    ViewBag.Title = "Mirror-Configuration";
-}
+@*@model List<UserMirrorViewModel>*@
 
-@Styles.Render("~/Content/gridster")
-@Scripts.Render("~/bundles/gridster")
+<h2>Select a mirror</h2>
 
-<style>
-    .gridster {
-        height: 585px;
-        border: 1px solid white;
-    }
-
-    #dwarf-pool {
-        overflow-y: auto;
-    }
-
-    #dwarf-pool ul, #dwarf-pool ul li {
-        width: 100%;
-        text-align: center;
-    }
-
-    .gridster ul {
-        width: 100%;
-        margin: 0;
-    }
-
-    .gridster ul > li {
-        border: 1px solid white;
-    }
-
-    ul {
-        list-style-type: none;
-    }
-</style>
-
-<h2>Hello @Model.FirstName @Model.LastName !</h2>
-@if (Model.SpeechID == null || Model.SpeechID.Equals(""))
-{
-    <p>You have to record your voice!</p>
-    <p></p>
-    <ol style="list-style-type: decimal">
-        <li>Check wheather your mirror is on</li>
-        <li>Press <button class="btn btn-primary btn-circle" id="startRecording"><i class="fa fa-microphone"></i></button> to start recording</li>
-        <li>Go to the mirror</li>
-        <li>There you will see a new window where you can record your voice.</li>
-    </ol>
-}
-<h4>Configuration</h4>
 <div class="row">
-    <div class="col s2">
-        <div class="gridster" id="dwarf-pool">
-            <ul></ul>
-        </div>
-    </div>
-    <div class="col s10 ">
-        <div class="gridster task-card-list" id="dashboard">
-            <ul></ul>
-        </div>
+    @*@foreach (Mirror mirror in Model)
+        {
+            <div class="s2">
+                <a href="@Url.Action("ConfigurateMirror", "Configuration", new { id = Model.Mirror.Id})><img src=""/></a>
+            </div>
+        }
+    *@
+    <div class="col-md-2" id="new-mirror" style="border: 2px dashed blue;">
+        @*<a href="@Url.Action("AddMirror","Configuration", new { id = Model.Mirror.Id })"></a>*@
     </div>
 </div>
-
-@section Scripts
-{   
-<script>
-
-    var dwarfPool;
-    var dashboard;
-
-    $(document).ready(function () {
-        fillPool();
-        buildGrid();
-
-        $("#dwarf-pool ul li").on("click", function () {
-            var dwarf = ['<li>' + $(this).html() + '</li>', 1, 1];
-            dashboard.add_widget.apply(dashboard, dwarf);
-        });
-
-        $("#dashboard ul li").on("click", function () {
-            var dwarf = ['<li>' + $(this).html() + '</li>', 1, 1];
-            dwarfPool.add_widget.apply(dwarfPool, dwarf);
-        });
-    });
-
-    var buildGrid = function () {
-
-        var dimension = 140;
-
-        dashboard = $('#dashboard ul').gridster({
-            widget_margins: [10, 10],
-            widget_base_dimensions: [dimension, dimension],
-            shift_widgets_up: false,
-            shift_larger_widgets_down: false,
-            collision: {
-                wait_for_mouseup: true
-            },
-            resize: {
-                enabled: true
-            }
-        }).data('gridster');
-    };
-
-    var fillPool = function () {
-
-        var dimension = $('#dwarf-pool ul').width() - 50;
-
-        widgetPool = $('#dwarf-pool ul').gridster({
-            widget_margins: [5, 5],
-            widget_base_dimensions: [dimension, dimension],
-            shift_larger_widgets_down: false
-        }).data('gridster');
-
-        var dwarfs = [
-            ['<li>NEWS</li>', 1, 1],
-            ['<li>WEATHER</li>', 1, 1],
-            ['<li>FACEBOOK</li>', 1, 1],
-            ['<li>MAIL</li>', 1, 1],
-            ['<li>GOTTMUSIG</li>', 1, 1]
-        ];
-
-        $.each(dwarfs, function (i, dwarf) {
-            widgetPool.add_widget.apply(widgetPool, dwarf)
-        });
-    }
-</script>
-}

@@ -212,13 +212,36 @@ namespace UIConfiguration.Models
             return View();
         }
 
-        // send email to reset the password
+        // send email to set the new password
         public async Task<JsonResult> SendForgotPasswordMail(string email)
         {
             SnowwhiteUser userForMail = _dbContext.Users.FirstOrDefault(x => x.Email.Equals(email));
             string body = "Hello " + userForMail.FirstName + " " + userForMail.LastName + "!";
             //body += "<br /><a href = '" + Url.Action("ResetPassword", "Account", new { id = userForMail.Id, forgot = true }) + "'>Click here to reset your password.</a>";
-            body += "<br /><a href = 'http://snowwhite-configurationpage.azurewebsites.net/Account/ResetPassword?id=" + userForMail.Id + "&forgot=true'>Click here to reset your password.</a>";
+            body += "<br /><a href = 'http://snowwhite-configurationpage.azurewebsites.net/Account/ForgotPassword?id=" + userForMail.Id +"'>Click here to set a new password.</a>";
+            body += "<br /><br/> Your Snowwhite-Team";
+
+            using (MailMessage mm = new MailMessage(ConfigurationManager.AppSettings["EmailAddress"], userForMail.Email))
+            {
+                MailAddress sender = new MailAddress(ConfigurationManager.AppSettings["EmailAddress"], "Snowwhite-Team", Encoding.UTF8);
+                mm.Subject = "Resetting for " + userForMail.FirstName + " " + userForMail.LastName;
+
+                mm.Body = body;
+                mm.BodyEncoding = Encoding.UTF8;
+                mm.IsBodyHtml = true;
+
+                smtpClient.SendAsync(mm, userForMail.Id);
+            }
+            return Json(await Task.FromResult(0), JsonRequestBehavior.AllowGet);
+        }
+
+        // send email to reset the old password
+        public async Task<JsonResult> SendResetPasswordMail(string email)
+        {
+            SnowwhiteUser userForMail = _dbContext.Users.FirstOrDefault(x => x.Email.Equals(email));
+            string body = "Hello " + userForMail.FirstName + " " + userForMail.LastName + "!";
+            //body += "<br /><a href = '" + Url.Action("ResetPassword", "Account", new { id = userForMail.Id, forgot = true }) + "'>Click here to reset your password.</a>";
+            body += "<br /><a href = 'http://snowwhite-configurationpage.azurewebsites.net/Account/ResetPassword?id=" + userForMail.Id + "'>Click here to reset your password.</a>";
             body += "<br /><br/> Your Snowwhite-Team";
 
             using (MailMessage mm = new MailMessage(ConfigurationManager.AppSettings["EmailAddress"], userForMail.Email))
@@ -236,12 +259,8 @@ namespace UIConfiguration.Models
         }
 
         // show reset or forgot password form
-        public ActionResult ResetPassword(string id, bool forgot = false)
+        public ActionResult ResetPassword(string id)
         {
-            if (forgot)
-            {
-                return View("ForgotPassword");
-            }
             return View();
         }
 
