@@ -7,25 +7,26 @@ namespace UIConfiguration.Controllers
     [Authorize]
     public class ConfigurationController : Controller
     {
-        private static ApplicationDbContext _dbContext = new ApplicationDbContext();
+        private static readonly ApplicationDbContext _dbContext = ApplicationDbContext.GetContext();
 
-        private SnowwhiteUser loggedInUser = null;
+        private SnowwhiteUser _loggedInUser = ApplicationDbContext.GetUser();
 
         public ActionResult Index()
         {
-            if (this.loggedInUser == null)
+            var user = ApplicationDbContext.GetUser();
+            if (this._loggedInUser == null)
             {
-                this.loggedInUser = _dbContext.Users.Find(User.Identity.GetUserId());
+                this._loggedInUser = _dbContext.Users.Find(User.Identity.GetUserId());
             }
 
             // get all mirrors and send viewmodel with user and mirrors
-            return View(this.loggedInUser);
+            return View(this._loggedInUser);
         }
 
         
-        public ActionResult ConfigurateMirror(string id)
+        public ActionResult MirrorConfiguration(string id)
         {
-            return View();
+            return View(this._loggedInUser);
         }
         
         public ActionResult AddMirror()
@@ -35,7 +36,7 @@ namespace UIConfiguration.Controllers
         
         public ActionResult ShowProfile()
         {
-            return View(loggedInUser);
+            return View(_loggedInUser);
         }
     }
 }

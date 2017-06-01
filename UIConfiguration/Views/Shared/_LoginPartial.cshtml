@@ -1,8 +1,7 @@
 ﻿@using UIConfiguration.Models
 @using Microsoft.AspNet.Identity
 @{ 
-    ApplicationDbContext _dbContext = new ApplicationDbContext();
-    SnowwhiteUser user = new ApplicationDbContext().Users.Find(User.Identity.GetUserId());
+    SnowwhiteUser user =  ApplicationDbContext.GetUser();
 }
 
 @if (Request.IsAuthenticated)
