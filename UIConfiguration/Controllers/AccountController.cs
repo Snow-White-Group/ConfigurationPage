@@ -85,7 +85,7 @@ namespace UIConfiguration.Models
             {
                 return View(model);
             }
-            var result = await SignInManager.PasswordSignInAsync(model.Email, model.Password, false/*model.RememberMe*/, shouldLockout: false);
+            var result = await SignInManager.PasswordSignInAsync(model.Email, model.Password, model.RememberMe, shouldLockout: false);
 
             switch (result)
             {

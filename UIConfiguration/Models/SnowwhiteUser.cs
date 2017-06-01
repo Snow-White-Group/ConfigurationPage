@@ -16,6 +16,5 @@ namespace UIConfiguration.Models
         public DateTime? RegistrationDate { get; set; }
         public DateTime? LastLogin { get; set; }
         public string SpeechID { get; set; }
-        public string test { get; set; }
     }
 }
