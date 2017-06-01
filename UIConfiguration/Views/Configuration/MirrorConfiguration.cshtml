@@ -76,6 +76,7 @@
         $("#dwarf-pool ul li").on("click", function () {
             var dwarf = ['<li>' + $(this).html() + '</li>', 1, 1];
             dashboard.add_widget.apply(dashboard, dwarf);
+            dwarfPool.remove_widget(dwarfPool, dwarf);
         });
 
         $("#dashboard ul li").on("click", function () {

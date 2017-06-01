@@ -7,13 +7,13 @@ namespace UIConfiguration.Migrations
     using System.Resources;
     
     [GeneratedCode("EntityFramework.Migrations", "6.1.3-40302")]
-    public sealed partial class add_speechid : IMigrationMetadata
+    public sealed partial class NewsAndWeather : IMigrationMetadata
     {
-        private readonly ResourceManager Resources = new ResourceManager(typeof(add_speechid));
+        private readonly ResourceManager Resources = new ResourceManager(typeof(NewsAndWeather));
         
         string IMigrationMetadata.Id
         {
-            get { return "201705081631581_add_speechid"; }
+            get { return "201706011819185_NewsAndWeather"; }
         }
         
         string IMigrationMetadata.Source

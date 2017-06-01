@@ -2,29 +2,22 @@
 using Microsoft.AspNet.Identity.Owin;
 using Microsoft.Owin.Security;
 using System;
-using System.Collections.Generic;
+using System.Configuration;
 using System.Linq;
+using System.Net.Mail;
+using System.Text;
 using System.Threading.Tasks;
 using System.Web;
 using System.Web.Mvc;
-using Microsoft.AspNet.Identity.EntityFramework;
-using System.IO;
-using System.Web.UI.WebControls;
-using System.Net.Mail;
-using System.Net;
-using System.Configuration;
-using System.Text;
 using UIConfiguration.Services;
 
 namespace UIConfiguration.Models
 {
     /* TODO */
     /*
-        - passwort reset
+        - passwort reset => test
 
-        - forgot password | secret question?
-
-        - profilepage
+        - forgot password => test
          
       */
 

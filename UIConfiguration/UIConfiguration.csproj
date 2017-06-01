@@ -223,24 +223,20 @@
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="Controllers\AccountController.cs" />
-    <Compile Include="Migrations\201705061952117_User_Table.cs" />
-    <Compile Include="Migrations\201705061952117_User_Table.Designer.cs">
-      <DependentUpon>201705061952117_User_Table.cs</DependentUpon>
+    <Compile Include="Migrations\201706011819185_NewsAndWeather.cs" />
+    <Compile Include="Migrations\201706011819185_NewsAndWeather.Designer.cs">
+      <DependentUpon>201706011819185_NewsAndWeather.cs</DependentUpon>
     </Compile>
-    <Compile Include="Migrations\201705062005304_User_Table_Fix_1.cs" />
-    <Compile Include="Migrations\201705062005304_User_Table_Fix_1.Designer.cs">
-      <DependentUpon>201705062005304_User_Table_Fix_1.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201705081631581_add_speechid.cs" />
-    <Compile Include="Migrations\201705081631581_add_speechid.Designer.cs">
-      <DependentUpon>201705081631581_add_speechid.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\Configuration.cs" />
+    <Compile Include="Migrations\ServicesConfiguration.cs" />
     <Compile Include="Models\ForgotPasswordViewModel.cs" />
     <Compile Include="Models\IdentityContext.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
+    <Compile Include="Models\News.cs" />
+    <Compile Include="Models\NewsSource.cs" />
     <Compile Include="Models\ResetPasswordViewModel.cs" />
+    <Compile Include="Models\ServicesDbContext.cs" />
     <Compile Include="Models\SnowwhiteUser.cs" />
+    <Compile Include="Models\WeatherForecast.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Services\EmailService.cs" />
     <Compile Include="Startup.cs" />
@@ -435,14 +431,8 @@
     <Content Include="Scripts\jquery-3.1.1.min.map" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Migrations\201705061952117_User_Table.resx">
-      <DependentUpon>201705061952117_User_Table.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201705062005304_User_Table_Fix_1.resx">
-      <DependentUpon>201705062005304_User_Table_Fix_1.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201705081631581_add_speechid.resx">
-      <DependentUpon>201705081631581_add_speechid.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\201706011819185_NewsAndWeather.resx">
+      <DependentUpon>201706011819185_NewsAndWeather.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>
