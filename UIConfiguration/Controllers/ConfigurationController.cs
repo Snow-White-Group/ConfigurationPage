@@ -13,12 +13,6 @@ namespace UIConfiguration.Controllers
 
         public ActionResult Index()
         {
-            var user = ApplicationDbContext.GetUser();
-            if (this._loggedInUser == null)
-            {
-                this._loggedInUser = _dbContext.Users.Find(User.Identity.GetUserId());
-            }
-
             // get all mirrors and send viewmodel with user and mirrors
             return View(this._loggedInUser);
         }
