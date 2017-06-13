@@ -6,6 +6,7 @@ using System.Linq;
 using System.Web;
 using System.Web.Hosting;
 using Microsoft.VisualBasic.FileIO;
+using UIConfiguration.Models;
 using FieldType = Microsoft.Ajax.Utilities.FieldType;
 
 namespace UIConfiguration.Services
@@ -32,14 +33,21 @@ namespace UIConfiguration.Services
         public string GenerateDisplayName()
         {
             var ret = _adjectives[_random.Next(0, _adjectives.Length-1)];
-            ret += "-" + _nouns[_random.Next(0, _nouns.Length - 1)];
-            ret += "-" + _random.Next(0, 9999).ToString("D" + 4);
+            ret += _nouns[_random.Next(0, _nouns.Length - 1)];
+            ret += "#" + _random.Next(0, 9999).ToString("D" + 4);
             return ret;
         }
 
         public string GenerateSecretName()
         {
             return Guid.NewGuid().ToString();
+        }
+
+        public MirrorNames GenerateMirrorNames()
+        {
+            return new MirrorNames(
+                GenerateDisplayName(),
+                GenerateSecretName());
         }
     }
 }

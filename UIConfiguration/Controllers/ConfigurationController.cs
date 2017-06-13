@@ -1,6 +1,8 @@
-﻿using Microsoft.AspNet.Identity;
+﻿using System.Web.Helpers;
+using Microsoft.AspNet.Identity;
 using System.Web.Mvc;
 using UIConfiguration.Models;
+using UIConfiguration.Services;
 
 namespace UIConfiguration.Controllers
 {
@@ -31,6 +33,13 @@ namespace UIConfiguration.Controllers
         public ActionResult ShowProfile()
         {
             return View(_loggedInUser);
+        }
+
+        [AllowAnonymous]
+        public JsonResult GenerateMirrorNames()
+        {
+            var service = new NameGeneratorService();
+            return Json(service.GenerateMirrorNames(), JsonRequestBehavior.AllowGet);
         }
     }
 }

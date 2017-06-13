@@ -232,6 +232,7 @@
     <Compile Include="Models\ForgotPasswordViewModel.cs" />
     <Compile Include="Models\IdentityContext.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
+    <Compile Include="Models\MirrorNames.cs" />
     <Compile Include="Models\News.cs" />
     <Compile Include="Models\NewsSource.cs" />
     <Compile Include="Models\ResetPasswordViewModel.cs" />
@@ -265,10 +266,10 @@
     <Content Include="Content\materialize\css\materialize.min.css" />
     <Content Include="Content\materialize\font\material-design-icons\LICENSE.txt" />
     <Content Include="Content\materialize\font\material-design-icons\Material-Design-Icons.svg" />
-    <Content Include="Content\Names\adjectives.csv">
+    <Content Include="Content\RandomNames\adjectives.csv">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
-    <None Include="Content\Names\nouns.csv">
+    <None Include="Content\RandomNames\nouns.csv">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
     <Content Include="Content\themes\base\accordion.css" />
