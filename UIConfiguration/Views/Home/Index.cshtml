@@ -1,18 +1,106 @@
 ﻿@{
     ViewBag.Title = "Home Page";
 }
+@Scripts.Render("~/bundles/materialize")
 
-<h1>UI Configurationpage</h1>
-<h2>Configure your personalized mirror interface!</h2>
-
-
-<div class="row">
-    <div class="col-md-3">
-        <img src="~/Content/Images/snowwhite-logo_64x64.png" alt="snowwhite-logo-original" class="img-circle"/>
+<!--Hero-->
+<div class="section no-pad-bot" id="index-banner">
+    <div class="container">
+        <h1 class="text_h center header cd-headline letters type">
+            Mirror mirror on the wall, who's the <strong>smartest</strong> one of all?
+        </h1>
     </div>
-    <div class="col-md-9">
-        <h3><i>Mirror mirror on the wall, who is the smartest of them all?</i></h3>
-        <strong>Configure your personilzed interface for your smart mirror from snowwhite!</strong>
-        <p>We offer the possibility to show different news, weather forecasts, social media and many more on our smart mirror which displays your configured interface just with your voice!</p>
+</div>
+
+<!--Intro and service-->
+<div id="intro" class="section scrollspy">
+    <div class="container">
+        <div class="row">
+            <div  class="col s12">
+                <h3 class="center header text_h2"> We want to combine three key elements, to a <span class="span_h2">successful</span> and <span class="span_h2">lasting software</span>: A strong community, a great natural design and the ability to share your smart mirror with you loved ones. </h3>
+            </div>
+
+            <div  class="col s12 m4 l4">
+                <div class="center promo promo-example">
+                    <i class="mdi-social-group"></i>
+                    <h5 class="promo-caption">Community</h5>
+                    <p class="light center">To shape the future we need everyone to join our journey. Start sharing your own design ideas or take part in our software repositories directly.</p>
+                </div>
+            </div>
+            <div class="col s12 m4 l4">
+                <div class="center promo promo-example">
+                    <i class="mdi-image-brush"></i>
+                    <h5 class="promo-caption">Design</h5>
+                    <p class="light center">Design is everything. This has even more importance for our software. The user doesn't have to interact with the mirror. Information will speak for itself.</p>
+                </div>
+            </div>
+            <div class="col s12 m4 l4">
+                <div class="center promo promo-example">
+                    <i class="mdi-file-cloud"></i>
+                    <h5 class="promo-caption">Sharing</h5>
+                    <p class="light center">A mirror using our software can be shared with family and friends. We are able to provide multiple users, who can login at multiple mirror devices.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!--Parallax-->
+<div class="parallax-container">
+    <div class="parallax"><img src="/Content/Images/parallax1.png"></div>
+</div>
+
+<!--Team-->
+<div class="section scrollspy" id="team">
+    <div class="container">
+        <h2 class="header text_b"> Our Team </h2>
+        <div class="row">
+            <div class="col s12 m3">
+                <div class="card card-avatar">
+                    <div class="waves-effect waves-block waves-light">
+                        <img class="activator" src="/Content/Images/Team/cem.png">
+                    </div>
+                    <div class="card-content">
+                        <span class="card-title activator grey-text text-darken-4">Cem Freimoser<br/>
+                            <small><em><a class="red-text text-darken-1" href="#">Project Manager, Developer</a></em></small></span>
+                    </div>
+                </div>
+            </div>
+            <div class="col s12 m3">
+                <div class="card card-avatar">
+                    <div class="waves-effect waves-block waves-light">
+                        <img class="activator" src="/Content/Images/Team/domi.png">
+                    </div>
+                    <div class="card-content">
+                        <span class="card-title activator grey-text text-darken-4">Dominik Jülg<br/>
+                            <small><em><a class="red-text text-darken-1" href="#">Public Relations, Developer</a></em></small>
+                        </span>
+                    </div>
+                </div>
+            </div>
+            <div class="col s12 m3">
+                <div class="card card-avatar">
+                    <div class="waves-effect waves-block waves-light">
+                        <img class="activator" src="/Content/Images/Team/marc.png">
+                    </div>
+                    <div class="card-content">
+                        <span class="card-title activator grey-text text-darken-4">
+                            Mark Weickenmeier<br/>
+                            <small><em><a class="red-text text-darken-1" href="#">Designer, Developer</a></em></small></span>
+                    </div>
+                </div>
+            </div>
+            <div class="col s12 m3">
+                <div class="card card-avatar">
+                    <div class="waves-effect waves-block waves-light">
+                        <img class="activator" src="/Content/Images/Team/mario.png">
+                    </div>
+                    <div class="card-content">
+                        <span class="card-title activator grey-text text-darken-4">Mario Kunstek<br/>
+                            <small><em><a class="red-text text-darken-1" href="#">Employee of the Month</a></em></small></span>
+                    </div>
+                </div>
+            </div>
+        </div>
     </div>
 </div>

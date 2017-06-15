@@ -24,29 +24,22 @@ namespace UIConfiguration
                         "~/Scripts/modernizr-*"
                 ));
 
-            bundles.Add(new ScriptBundle("~/bundles/bootstrap").Include(
-                      "~/Scripts/bootstrap.js",
-                      "~/Scripts/respond.js"
-                ));
-
             bundles.Add(new ScriptBundle("~/bundles/materialize").Include(
-                    "~/Scripts/materialize/materialize.js"
+                    "~/Content/Javascript/custom-min.js",
+                    "~/Content/Javascript/plugin-min.js",
+                    "~/Content/Javascript/materialize.js"
                 ));
-
 
             bundles.Add(new ScriptBundle("~/bundles/gridster").Include(
-                    "~/Scripts/jquery.gridster.js"
+                    "~/Scripts/jquery.gridster.min.js"
                 ));
 
-            bundles.Add(new StyleBundle("~/Content/gridster").Include(
-                    "~/Content/jquery.gridster.css"
-                ));
-
-            bundles.Add(new StyleBundle("~/Content/css").Include(
-                      "~/Content/bootstrap.css",
-                      "~/Content/site.css",
-                      "~/Content/font-awesome.css",
-                      "~/Content/materialize/css/materialize.css"
+            bundles.Add(new StyleBundle("~/bundles/css").Include(
+                      "~/Content/css/jquery.gridster.min.css",
+                      "~/Content/css/font-awesome.min.css",
+                      "~/Content/css/plugin-min.css",
+                      "~/Content/css/custom-min.css",                      
+                      "~/Content/css/materialize-min.css"
                  ));
 
         }

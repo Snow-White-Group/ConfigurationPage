@@ -2,53 +2,78 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
-    <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1.0, user-scalable=no"/>
+    <meta name="theme-color" content="#2196F3">
     <title>@ViewBag.Title - UI-Configurationpage</title>
-    @Styles.Render("~/Content/css")
+    @Styles.Render("~/bundles/css")
     @Scripts.Render("~/bundles/jquery")
-    @Scripts.Render("~/bundles/bootstrap")
     @Scripts.Render("~/bundles/modernizr")
-    @RenderSection("scripts", required: false)
+    @Scripts.Render("~/bundles/materialize")
+    @RenderSection("Scripts", required: false)
 </head>
-<body>
-    <div class="navbar navbar-inverse navbar-fixed-top">
+<body id="top" class="scrollspy">
+
+<!-- Pre Loader -->
+<div id="loader-wrapper">
+    <div id="loader"></div>
+ 
+    <div class="loader-section section-left"></div>
+    <div class="loader-section section-right"></div>
+ 
+</div>
+
+<!--Navigation-->
+<div class="navbar-fixed">
+    <nav id="nav_f" class="default_color" role="navigation">
         <div class="container">
-            <div class="navbar-header">
-                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                </button>
-            </div>
-            <div class="navbar-collapse collapse">
-                <ul class="nav navbar-nav">
-                    <li><a href="@Url.Action("Index","Home")"><img src="~/Content/Images/snowwhite-logo_8x8.png" alt="snowwhite-logo_8x8.png" /></a></li>
-                    <li>@Html.ActionLink("About", "About", "Home")</li>
-                    <li>@Html.ActionLink("Contact", "Contact", "Home")</li>
-                    @{
-                        if (User.Identity.IsAuthenticated)
-                        {
-                            <li>@Html.ActionLink("Configuration", "Index", "Configuration")</li>
-                        }
-                    }
+            <div class="nav-wrapper">
+                <a href="/#" id="logo-container" class="brand-logo">Snow White</a>
+                <ul class="right hide-on-med-and-down">
+                    <li><a href="/#intro">Service</a></li>
+                    <li><a href="/#team">Team</a></li>
+                    <li><a href="/#contact">Contact</a></li>
+                    @Html.Partial("_LoginPartial")
                 </ul>
-                @Html.Partial("_LoginPartial")
+                <ul id="nav-mobile" class="side-nav">
+                    <li><a href="/#intro">Service</a></li>
+                    <li><a href="/#team">Team</a></li>
+                    <li><a href="/#contact">Contact</a></li>
+                    @Html.Partial("_LoginPartial")
+                </ul>
+                <a href="#" data-activates="nav-mobile" class="button-collapse"><i class="mdi-navigation-menu"></i></a>
             </div>
         </div>
-    </div>
-    <div class="container body-content">
-        @RenderBody()
-        <hr />
-        <footer>
-            <div class="navbar-collapse collapse">
-                <ul class="nav navbar-nav">
-                    <li>@Html.ActionLink("\u00A9 SnowWhite", "Index", "Home")</li>
-                    <li><a href="https://mmowblog.wordpress.com/" )>SnowWhite - Blog</a></li>
-                    <li>@Html.ActionLink("AGB", "", "")</li>
-                </ul>
+    </nav>
+</div>
+
+<div>
+    @RenderBody()
+    <footer class="page-footer default_color" id="contact">
+        <div class="container">
+            <div class="row">
+                <div class="col l6 s12">
+                    <h5 class="white-text">Contact Us!</h5>
+                    <p class="grey-text text-lighten-4">You can use rows and columns here to organize your footer content.</p>
+                </div>
+                <div class="col l4 offset-l2 s12">
+                    <h5 class="white-text">Links</h5>
+                    <ul>
+                        <li><a class="grey-text text-lighten-3" href="#!">Link 1</a></li>
+                        <li><a class="grey-text text-lighten-3" href="#!">Link 2</a></li>
+                        <li><a class="grey-text text-lighten-3" href="#!">Link 3</a></li>
+                        <li><a class="grey-text text-lighten-3" href="#!">Link 4</a></li>
+                    </ul>
+                </div>
             </div>
-        </footer>
-    </div>
+        </div>
+        <div class="footer-copyright darken-3">
+            <div class="container">
+                © 2017 Snow White Group
+                <a class="grey-text text-lighten-4 right" href="#">Back to Top</a>
+            </div>
+        </div>
+    </footer>
+</div>
 </body>
 </html>

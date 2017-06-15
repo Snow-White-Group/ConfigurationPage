@@ -9,18 +9,13 @@
     using (Html.BeginForm("LogOff", "Account", FormMethod.Post, new { id = "logoutForm", @class = "navbar-right" }))
     {
     @Html.AntiForgeryToken()
-
-    <ul class="nav navbar-nav navbar-right">
         @*<li><a href="@Url.Action("ShowProfile","Configuration")">Hallo @User.Identity.GetUserName() !</a></li>*@
         <li><a href="@Url.Action("ShowProfile","Configuration")"><img src="@user.Thumbnail ?? ~/Content/Images/ProfileImages/no-image.png" class="img-circle" style="width: 20px; height:20px;"/> Hallo @user.FirstName!</a></li>
         <li><a href="javascript:document.getElementById('logoutForm').submit()">Log off</a></li>
-    </ul>
     }
 }
 else
 {
-    <ul class="nav navbar-nav navbar-right">
         <li>@Html.ActionLink("Register", "Register", "Account", routeValues: null, htmlAttributes: new { id = "registerLink" })</li>
         <li>@Html.ActionLink("Login", "Login", "Account", routeValues: null, htmlAttributes: new { id = "loginLink" })</li>
-    </ul>
 }
