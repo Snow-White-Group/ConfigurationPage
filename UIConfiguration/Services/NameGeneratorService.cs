@@ -13,8 +13,8 @@ namespace UIConfiguration.Services
 {   
     public class NameGeneratorService
     {
-        private const string NounFilePath = @"~/Content/RandomNames/nouns.csv";
-        private const string AdjectiveFilePath = @"~/Content/RandomNames/adjectives.csv";
+        private const string NounFilePath = @"/Content/RandomNames/nouns.csv";
+        private const string AdjectiveFilePath = @"/Content/RandomNames/adjectives.csv";
 
         private readonly Random _random;
         private readonly string[] _nouns;
