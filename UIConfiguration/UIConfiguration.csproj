@@ -247,12 +247,11 @@
   <ItemGroup>
     <Content Include="Content\css\custom-min.css" />
     <Content Include="Content\css\font-awesome.min.css" />
+    <Content Include="Content\css\snowwhite.css" />
     <Content Include="Content\Images\parallax1.png" />
     <Content Include="Content\Images\snowwhite-logo.png" />
-    <Content Include="Content\Images\snowwhite-logo_16x16.png" />
-    <Content Include="Content\Images\snowwhite-logo_32x32.png" />
-    <Content Include="Content\Images\snowwhite-logo_64x64.png" />
-    <Content Include="Content\Images\snowwhite-logo_8x8.png" />
+    <Content Include="Content\Images\snowwhite-logo48.png" />
+    <Content Include="Content\Images\snowwhite-logo64.png" />
     <Content Include="Content\Images\Team\cem.png" />
     <Content Include="Content\Images\Team\domi.png" />
     <Content Include="Content\Images\Team\marc.png" />

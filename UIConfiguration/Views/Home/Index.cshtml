@@ -1,7 +1,6 @@
 ﻿@{
     ViewBag.Title = "Home Page";
 }
-@Scripts.Render("~/bundles/materialize")
 
 <!--Hero-->
 <div class="section no-pad-bot" id="index-banner">
@@ -104,3 +103,7 @@
         </div>
     </div>
 </div>
+
+@section Scripts {
+    @Scripts.Render("~/bundles/materialize")
+}

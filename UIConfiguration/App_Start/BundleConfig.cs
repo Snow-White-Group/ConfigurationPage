@@ -35,6 +35,7 @@ namespace UIConfiguration
                 ));
 
             bundles.Add(new StyleBundle("~/bundles/css").Include(
+                      "~/Content/css/snowwhite.css",
                       "~/Content/css/jquery.gridster.min.css",
                       "~/Content/css/font-awesome.min.css",
                       "~/Content/css/plugin-min.css",
