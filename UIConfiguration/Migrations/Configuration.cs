@@ -5,14 +5,14 @@ namespace UIConfiguration.Migrations
     using System.Data.Entity.Migrations;
     using System.Linq;
 
-    internal sealed class ServicesConfiguration : DbMigrationsConfiguration<UIConfiguration.Models.ServicesDbContext>
+    internal sealed class Configuration : DbMigrationsConfiguration<UIConfiguration.Models.ApplicationDbContext>
     {
-        public ServicesConfiguration()
+        public Configuration()
         {
             AutomaticMigrationsEnabled = false;
         }
 
-        protected override void Seed(UIConfiguration.Models.ServicesDbContext context)
+        protected override void Seed(UIConfiguration.Models.ApplicationDbContext context)
         {
             //  This method will be called after migrating to the latest version.
 

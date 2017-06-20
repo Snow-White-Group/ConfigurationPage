@@ -10,7 +10,7 @@ namespace UIConfiguration.Controllers
     public class ConfigurationController : Controller
     {
         private static readonly ApplicationDbContext _dbContext = ApplicationDbContext.GetContext();
-
+        //Postfach
         private SnowwhiteUser _loggedInUser = ApplicationDbContext.GetUser();
 
         public ActionResult Index()
@@ -40,6 +40,12 @@ namespace UIConfiguration.Controllers
         {
             var service = new NameGeneratorService();
             return Json(service.GenerateMirrorNames(), JsonRequestBehavior.AllowGet);
+        }
+
+        [AllowAnonymous]
+        public JsonResult GetPostbox(string mirrorId)
+        {
+            return Json(null, JsonRequestBehavior.AllowGet);
         }
     }
 }

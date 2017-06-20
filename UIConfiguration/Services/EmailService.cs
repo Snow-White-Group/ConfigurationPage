@@ -14,10 +14,10 @@ namespace UIConfiguration.Services
 
         public EmailService()
         {
-            smtpClient = new SmtpClient("smtp.web.de", 587);
-            smtpClient.UseDefaultCredentials = true;
+            smtpClient = new SmtpClient();
             smtpClient.EnableSsl = true;
             smtpClient.Credentials = new NetworkCredential(ConfigurationManager.AppSettings["EmailAddress"].ToString(), ConfigurationManager.AppSettings["EmailPW"].ToString());
+            smtpClient.Host = "smtp.1and1.com";
         }
     }
 }

@@ -1,6 +1,7 @@
 ﻿using System.Web;
 using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.EntityFramework;
+using System.Data.Entity;
 
 namespace UIConfiguration.Models
 {
@@ -11,6 +12,16 @@ namespace UIConfiguration.Models
         public ApplicationDbContext()
             : base("SnowwhiteUsersContext")
         {
+        }
+
+        public DbSet<Mirror> Mirrora { get; set; }
+
+        protected override void OnModelCreating(DbModelBuilder modelBuilder)
+        {
+            base.OnModelCreating(modelBuilder);
+
+            modelBuilder.Entity<SnowwhiteUser>().HasKey(x => x.Id);
+            modelBuilder.Entity<Mirror>().ToTable("Mirrors");
         }
 
         public static ApplicationDbContext Create()
