@@ -5,6 +5,7 @@ using System.Web;
 using System.Data.Entity;
 using System.Security;
 using Microsoft.AspNet.Identity.EntityFramework;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace UIConfiguration.Models
 {
@@ -16,5 +17,8 @@ namespace UIConfiguration.Models
         public DateTime? RegistrationDate { get; set; }
         public DateTime? LastLogin { get; set; }
         public string SpeechID { get; set; }
+
+        [ForeignKey("Id")]
+        public virtual List<Mirror> Mirrors { get; set; }
     }
 }

@@ -224,21 +224,23 @@
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="Controllers\AccountController.cs" />
-    <Compile Include="Migrations\201706011819185_NewsAndWeather.cs" />
-    <Compile Include="Migrations\201706011819185_NewsAndWeather.Designer.cs">
-      <DependentUpon>201706011819185_NewsAndWeather.cs</DependentUpon>
+    <Compile Include="Migrations\201706201653053_MirrorsAndUsers.cs" />
+    <Compile Include="Migrations\201706201653053_MirrorsAndUsers.Designer.cs">
+      <DependentUpon>201706201653053_MirrorsAndUsers.cs</DependentUpon>
     </Compile>
-    <Compile Include="Migrations\ServicesConfiguration.cs" />
+    <Compile Include="Migrations\201706201734087_MirrorsAndUsersFixNo1.cs" />
+    <Compile Include="Migrations\201706201734087_MirrorsAndUsersFixNo1.Designer.cs">
+      <DependentUpon>201706201734087_MirrorsAndUsersFixNo1.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\ForgotPasswordViewModel.cs" />
     <Compile Include="Models\IdentityContext.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
+    <Compile Include="Models\Mirror.cs" />
+    <Compile Include="Models\MirrorAction.cs" />
     <Compile Include="Models\MirrorNames.cs" />
-    <Compile Include="Models\News.cs" />
-    <Compile Include="Models\NewsSource.cs" />
     <Compile Include="Models\ResetPasswordViewModel.cs" />
-    <Compile Include="Models\ServicesDbContext.cs" />
     <Compile Include="Models\SnowwhiteUser.cs" />
-    <Compile Include="Models\WeatherForecast.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Services\NameGeneratorService.cs" />
     <Compile Include="Services\EmailService.cs" />
@@ -404,8 +406,11 @@
     <Content Include="Scripts\jquery-3.1.1.min.map" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Migrations\201706011819185_NewsAndWeather.resx">
-      <DependentUpon>201706011819185_NewsAndWeather.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\201706201653053_MirrorsAndUsers.resx">
+      <DependentUpon>201706201653053_MirrorsAndUsers.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201706201734087_MirrorsAndUsersFixNo1.resx">
+      <DependentUpon>201706201734087_MirrorsAndUsersFixNo1.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>
