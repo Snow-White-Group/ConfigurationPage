@@ -4,14 +4,16 @@
 <h2>Select a mirror - @Model.User.FirstName</h2>
 
 <div class="row">
-    @foreach (Mirror mirror in Model.Mirrors)
-    {
-        <div class="s2">
-            <a href="snowwhite-configurationpage.azurewebsites.net/Configuration/id="@mirror.Id><img src=""/></a>
-        </div>
-    }
+    <div class="s12">
+        @foreach (Mirror mirror in Model.Mirrors)
+        {
+            <div class="s2">
+                <a href="~/Configuration/id="@mirror.Id><img src=""/>@mirror.DisplayName</a>
+            </div>
+        }
     
-    <div class="col-md-2" id="new-mirror" style="border: 2px dashed blue;">
-        <a href="snowwhite-configurationpage.azurewebsites.net/Configuration/AddMirror"><span><i class="fa fa-4x fa-dashboard"></i></span></a>
+        <div class="col-md-2" id="new-mirror" style="border: 2px dashed blue;">
+            <a href="~/Configuration/AddMirror">Add Mirror</a>
+        </div>
     </div>
 </div>

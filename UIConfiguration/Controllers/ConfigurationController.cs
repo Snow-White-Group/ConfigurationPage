@@ -11,7 +11,7 @@ namespace UIConfiguration.Controllers
     [Authorize]
     public class ConfigurationController : Controller
     {
-        private static readonly ApplicationDbContext _dbContext = ApplicationDbContext.GetContext();
+        private readonly ApplicationDbContext _dbContext = ApplicationDbContext.GetContext();
         private List<MirrorAction> _mirrorActions = new List<MirrorAction>();
         private MirrorsUserViewModel _mirrorUserViewModel;
         private SnowwhiteUser _loggedInUser = ApplicationDbContext.GetUser();
@@ -69,7 +69,27 @@ namespace UIConfiguration.Controllers
         [AllowAnonymous]
         public JsonResult GetPostbox(string mirrorId)
         {
-            return Json(this._mirrorActions, JsonRequestBehavior.AllowGet);
+            return Json(this._mirrorActions.FirstOrDefault(x => x.TargetMirror.Id.Equals(mirrorId)), JsonRequestBehavior.AllowGet);
+        }
+
+        [AllowAnonymous]
+        public JsonResult Handshake(string secretName)
+        {
+            if(_dbContext.Mirrors.Any(x => x.SecretName.Equals(secretName)))
+            {
+                return Json(false, JsonRequestBehavior.AllowGet);
+            }
+            
+            MirrorAction handshake = new MirrorAction()
+            {
+                TargetAction = Action.Handshake,
+                TargetMirror = this._mirrorUserViewModel.Mirrors.FirstOrDefault(x => x.SecretName.Equals(secretName)),
+                User = this._loggedInUser
+            };
+
+            this._mirrorActions.Add(handshake);
+
+            return Json(true, JsonRequestBehavior.AllowGet);
         }
     }
 }
