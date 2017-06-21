@@ -5,6 +5,7 @@ using UIConfiguration.Models;
 using UIConfiguration.Services;
 using System.Linq;
 using System.Collections.Generic;
+using System;
 
 namespace UIConfiguration.Controllers
 {
@@ -49,11 +50,24 @@ namespace UIConfiguration.Controllers
 
         public JsonResult StartRecording(string id)
         {
+            Mirror targetMirror = _mirrorUserViewModel.Mirrors.FirstOrDefault(x => x.Id.Equals(id));
             this._mirrorActions.Add(new MirrorAction()
             {
-                TargetAction = Action.Record,
-                TargetMirror = _mirrorUserViewModel.Mirrors.FirstOrDefault(x => x.Id.Equals(id)),
-                User = _loggedInUser
+                TargetAction = ActionForMirror.Record,
+                TargetMirror = new MirrorForAction()
+                {
+                    Id = targetMirror.Id,
+                    DisplayName = targetMirror.DisplayName,
+                    SecretName = targetMirror.SecretName
+
+                },
+                User = new UserForAction()
+                {
+                    Id = this._loggedInUser.Id,
+                    Email = this._loggedInUser.Email,
+                    FirstName = this._loggedInUser.FirstName,
+                    LastName = this._loggedInUser.LastName
+                }
             });
 
             return Json(true, JsonRequestBehavior.AllowGet);
@@ -63,7 +77,15 @@ namespace UIConfiguration.Controllers
         public JsonResult GenerateMirrorNames()
         {
             var service = new NameGeneratorService();
-            return Json(service.GenerateMirrorNames(), JsonRequestBehavior.AllowGet);
+            var mirrorNames = service.GenerateMirrorNames();
+            _dbContext.Mirrors.Add(new Mirror()
+            {
+                Id = Guid.NewGuid().ToString(),
+                DisplayName = mirrorNames.DisplayName,
+                SecretName = mirrorNames.SecretName
+            });
+            _dbContext.SaveChanges();
+            return Json(mirrorNames, JsonRequestBehavior.AllowGet);
         }
 
         [AllowAnonymous]
@@ -79,15 +101,26 @@ namespace UIConfiguration.Controllers
             {
                 return Json(false, JsonRequestBehavior.AllowGet);
             }
-            
-            MirrorAction handshake = new MirrorAction()
-            {
-                TargetAction = Action.Handshake,
-                TargetMirror = this._mirrorUserViewModel.Mirrors.FirstOrDefault(x => x.SecretName.Equals(secretName)),
-                User = this._loggedInUser
-            };
 
-            this._mirrorActions.Add(handshake);
+            Mirror targetMirror = _mirrorUserViewModel.Mirrors.FirstOrDefault(x => x.SecretName.Equals(secretName));
+            this._mirrorActions.Add(new MirrorAction()
+            {
+                TargetAction = ActionForMirror.Handshake,
+                TargetMirror = new MirrorForAction()
+                {
+                    Id = targetMirror.Id,
+                    DisplayName = targetMirror.DisplayName,
+                    SecretName = targetMirror.SecretName
+
+                },
+                User = new UserForAction()
+                {
+                    Id = this._loggedInUser.Id,
+                    Email = this._loggedInUser.Email,
+                    FirstName = this._loggedInUser.FirstName,
+                    LastName = this._loggedInUser.LastName
+                }
+            });
 
             return Json(true, JsonRequestBehavior.AllowGet);
         }
