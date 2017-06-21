@@ -6,7 +6,7 @@ namespace UIConfiguration.Models
     public class LoginViewModel
     {
         [Required]
-        [Display(Name = "Email")]
+        [Display(Name = "E-Mail")]
         [EmailAddress]
         public string Email { get; set; }
 
@@ -32,7 +32,7 @@ namespace UIConfiguration.Models
 
         [Required]
         [EmailAddress]
-        [Display(Name = "Email")]
+        [Display(Name = "E-Mail")]
         public string Email { get; set; }
 
         [Required]
