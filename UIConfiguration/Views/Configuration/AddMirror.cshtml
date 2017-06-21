@@ -43,7 +43,7 @@
                             } else {
                                 alert("Successfull! Now wait till the handshake is done!");
 
-                                @Url.Action("Index", "Configuration");
+                                window.location.href = "@Url.Action("Index", "Configuration")";
                             }
                         }).fail(function (err, msg) {
                             alert(msg);

@@ -13,7 +13,7 @@ namespace UIConfiguration.Controllers
     public class ConfigurationController : Controller
     {
         private readonly ApplicationDbContext _dbContext = ApplicationDbContext.GetContext();
-        private List<MirrorAction> _mirrorActions = new List<MirrorAction>();
+        private static List<MirrorAction> _mirrorActions = new List<MirrorAction>();
         private static MirrorsUserViewModel _mirrorUserViewModel;
         private SnowwhiteUser _loggedInUser = ApplicationDbContext.GetUser();
 
@@ -51,7 +51,7 @@ namespace UIConfiguration.Controllers
         public JsonResult StartRecording(string id)
         {
             Mirror targetMirror = _mirrorUserViewModel.Mirrors.FirstOrDefault(x => x.Id.Equals(id));
-            this._mirrorActions.Add(new MirrorAction()
+            _mirrorActions.Add(new MirrorAction()
             {
                 TargetAction = ActionForMirror.Record,
                 TargetMirror = new MirrorForAction()
@@ -91,16 +91,16 @@ namespace UIConfiguration.Controllers
         [AllowAnonymous]
         public JsonResult GetPostbox(string secretname)
         {
-            var actions = this._mirrorActions.Where(x => x.TargetMirror.SecretName.Equals(secretname));
+            var actions = _mirrorActions.Where(x => x.TargetMirror.SecretName.Equals(secretname));
             if (actions.Any())
             {
                 foreach(var a in actions)
                 {
-                    this._mirrorActions.Remove(a);
+                    _mirrorActions.Remove(a);
                 }
                 return Json(actions, JsonRequestBehavior.AllowGet);
             }
-            return Json(null, JsonRequestBehavior.AllowGet);
+            return Json(actions.Count(), JsonRequestBehavior.AllowGet);
         }
 
         [AllowAnonymous]
@@ -116,7 +116,7 @@ namespace UIConfiguration.Controllers
             _loggedInUser.Mirrors.Add(targetMirror);
             _dbContext.SaveChanges();
 
-            this._mirrorActions.Add(new MirrorAction()
+            _mirrorActions.Add(new MirrorAction()
             {
                 TargetAction = ActionForMirror.Handshake,
                 TargetMirror = new MirrorForAction()
