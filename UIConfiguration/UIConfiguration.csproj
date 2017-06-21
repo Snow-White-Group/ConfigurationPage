@@ -265,8 +265,12 @@
     <Content Include="Content\font\material-design-icons\LICENSE.txt" />
     <Content Include="Content\font\material-design-icons\Material-Design-Icons.svg" />
     <Content Include="Content\css\plugin-min.css" />
-    <Content Include="Content\RandomNames\adjectives.csv" />
-    <Content Include="Content\RandomNames\nouns.csv" />
+    <Content Include="Content\RandomNames\adjectives.csv">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Content\RandomNames\nouns.csv">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
     <Content Include="Content\themes\base\accordion.css" />
     <Content Include="Content\themes\base\all.css" />
     <Content Include="Content\themes\base\autocomplete.css" />

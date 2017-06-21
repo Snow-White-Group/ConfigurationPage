@@ -2,9 +2,12 @@
     ViewBag.Title = "E-Mail bestätigen";
 }
 
-<h2>@ViewBag.Title.</h2>
-<div>
-    <p>
-        Danke für die Bestätigung Ihrer E-Mail. Bitte @Html.ActionLink("Click this link to login", "Login", "Account"})
-    </p>
+<div class="container">
+    <h2 class="header blue-text">@ViewBag.Title.</h2>
+    <div class="row">
+        <div class="col s12 light">              
+            Thank's a lot for your mail validation! <br/>
+            @Html.ActionLink("Click this link to login", "Login", "Account"})
+        </div>
+    </div>
 </div>
