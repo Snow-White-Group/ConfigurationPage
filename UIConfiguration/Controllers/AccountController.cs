@@ -90,9 +90,9 @@ namespace UIConfiguration.Models
             switch (result)
             {
                 case SignInStatus.Success:
-                    SnowwhiteUser loggedIn = _dbContext.Users.FirstOrDefault(x => x.Email.Equals(model.Email));
-                    //var identity = await UserManager.CreateIdentityAsync(loggedIn, DefaultAuthenticationTypes.ApplicationCookie); 
                     this.loggedInUser = this._dbContext.Users.FirstOrDefault(x => x.Email.Equals(model.Email));
+                    this.loggedInUser.LastLogin = DateTime.Now;
+                    _dbContext.SaveChanges();
                     return RedirectToAction("Index", "Configuration");
                 case SignInStatus.RequiresVerification:
                     return RedirectToAction("NotVerficated","Account");

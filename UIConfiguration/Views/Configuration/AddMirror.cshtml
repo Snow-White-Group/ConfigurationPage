@@ -32,18 +32,21 @@
                     if (mirrorname == '') {
                         alert("Write the display name of your mirror in the input field!");
                     } else {
-                        console.log('http://snowwhite-configurationpage.azurewebsites.net/Configuration/Handshake?displayName=' + mirrorname);
-                        $.ajax(function () {
-                            url: 'http://snowwhite-configurationpage.azurewebsites.net/Configuration/Handshake?displayName=' + mirrorname
+                        mirrorname = mirrorname.replace('#', '%23');
+                        console.log(mirrorname);
+                        $.ajax({
+                            //url: 'http://snowwhite-configurationpage.azurewebsites.net/Configuration/Handshake?displayName=' + mirrorname
+                            url: '@Url.Action("Handshake", "Configuration")?displayName=' + mirrorname
                         }).done(function (res) {
                             if (!res) {
                                 alert("The given secretname " + mirrorname + " is invalid");
                             } else {
                                 alert("Successfull! Now wait till the handshake is done!");
+
+                                @Url.Action("Index", "Configuration");
                             }
-                        }).fail(function (err) {
-                            alert(err);
-                            console.log(err);
+                        }).fail(function (err, msg) {
+                            alert(msg);
                         });
                     }
                 });

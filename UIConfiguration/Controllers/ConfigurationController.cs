@@ -113,6 +113,9 @@ namespace UIConfiguration.Controllers
                 return Json(false, JsonRequestBehavior.AllowGet);
             }
 
+            _loggedInUser.Mirrors.Add(targetMirror);
+            _dbContext.SaveChanges();
+
             this._mirrorActions.Add(new MirrorAction()
             {
                 TargetAction = ActionForMirror.Handshake,

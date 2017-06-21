@@ -48,7 +48,7 @@
         <li>There you will see a new window where you can record your voice.</li>
     </ol>
 }
-<h4>Configuration</h4>
+<h4>Configuration - @Model.Mirror.DisplayName</h4>
 <div class="row">
     <div class="col s2">
         <div class="gridster" id="dwarf-pool">
@@ -127,7 +127,7 @@
     }
 
     $("#startRecording").on("click", function () {
-        $.ajax(function () {
+        $.ajax({
             url: 'snowwhite-configurationpage.azurewebsites.net/Configuration/StartRecording?id=' + @Model.Mirror.Id,
             async: true
         }).done(function () {
