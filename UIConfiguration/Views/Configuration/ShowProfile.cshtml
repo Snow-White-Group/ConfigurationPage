@@ -1,13 +1,36 @@
 ﻿@using UIConfiguration.Models
 @model SnowwhiteUser
 
-<h2>@Model.FirstName 's Profile</h2>
+<div class="container">
+    <h2 class="header text_b">Your Profile</h2>
 
-<table>
-    <tr>
-        <td><img src="@Model.Thumbnail ?? ~/Content/Images/ProfileImages/no-image.png" /></td>@*change image button*@
-        <td>@Model.FirstName @Model.LastName</td>
-        <td><a href="@Url.Action("ResetPassword","Account", new { id = Model.Id })>Reset password</a></td>
-        <td></td>
-    </tr>
-</table>
+    
+    <div class="row">
+        <div class="col s12 m6" style="min-height: 48vh">
+           
+            <table class="responsive-table">                
+                <tr>
+                    <td><strong>Name</strong></td>
+                    <td>@Model.FirstName @Model.LastName</td>
+                </tr>  
+                <tr>
+                    <td><strong>Last Login</strong></td>
+                    <td>@String.Format("{0:D}", Model.LastLogin ?? DateTime.Now)</td>
+                </tr>               
+                <tr>
+                    <td><strong>Registration Date</strong></td>
+                    <td>@String.Format("{0:D}", Model.RegistrationDate ?? DateTime.Now)</td>
+                </tr>     
+                <tr>
+                    <td><strong>Email</strong></td>
+                    <td>@Model.Email</td>
+
+                </tr>
+                <tr>
+                    <td><strong>Mirrors</strong></td>
+                    <td>@Model.Mirrors.Select(a => a.DisplayName).Aggregate("", (acc, a) => acc + " " + a )</td>
+                </tr>
+            </table>
+        </div> 
+    </div>     
+</div>
