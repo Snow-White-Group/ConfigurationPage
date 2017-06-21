@@ -1,19 +1,40 @@
 ﻿@using UIConfiguration.Models
 @model MirrorsUserViewModel
 
-<h2>Select a mirror - @Model.User.FirstName</h2>
-
-<div class="row">
-    <div class="s12">
-        @foreach (Mirror mirror in Model.Mirrors)
+<div class="container">
+    <h2 class="header text_b">Select your Mirror</h2>
+    
+    <div class="row">
+        @if (Model.Mirrors.Count == 0)
         {
-            <div class="s2">
-                <a href="~/Configuration/id="@mirror.Id><img src=""/>@mirror.DisplayName</a>
+            <div class="col s12 light">
+                Hey @Model.User.FirstName, it seemes like you have no mirrors connected to your account, yet.<br/>
+                Let's get started by adding your first mirror!
             </div>
         }
-    
-        <div class="col-md-2" id="new-mirror" style="border: 2px dashed blue;">
-            <a href="~/Configuration/AddMirror">Add Mirror</a>
+        else
+        {
+            <div class="col s12 light">
+                Hey @Model.User.FirstName, here you can see an overview of all your mirrors.<br/>
+                Feel free to shape them the way you want to!
+            </div>
+        }        
+    </div>
+
+    <div class="row">
+        <div style="min-height: 32vh">
+            @foreach (Mirror mirror in Model.Mirrors)
+            {
+                <div class="col s12 light">
+                    <a href="~/Configuration/id="@mirror.Id><img src=""/>@mirror.DisplayName</a>
+                </div>
+            }
+                      
+        </div>
+        <div class="row">
+            <div class="col s12 light left" id="new-mirror">
+                <a href="~/Configuration/AddMirror" class="waves-effect waves-light btn blue darken-2">Add Mirror</a>
+            </div>
         </div>
     </div>
 </div>

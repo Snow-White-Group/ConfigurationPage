@@ -6,11 +6,10 @@
 
 @if (Request.IsAuthenticated)
 {
-    using (Html.BeginForm("LogOff", "Account", FormMethod.Post, new { id = "logoutForm", @class = "navbar-right" }))
+    using (Html.BeginForm("LogOff", "Account", FormMethod.Post, new { id = "logoutForm", @class = "left" }))
     {
     @Html.AntiForgeryToken()
-        @*<li><a href="@Url.Action("ShowProfile","Configuration")">Hallo @User.Identity.GetUserName() !</a></li>*@
-        <li><a href="@Url.Action("ShowProfile","Configuration")"><img src="@user.Thumbnail ?? ~/Content/Images/ProfileImages/no-image.png" class="img-circle" style="width: 20px; height:20px;"/> Hallo @user.FirstName!</a></li>
+        <li><a href="@Url.Action("ShowProfile","Configuration")">Hallo @user.FirstName!</a></li>
         <li><a href="javascript:document.getElementById('logoutForm').submit()">Log off</a></li>
     }
 }

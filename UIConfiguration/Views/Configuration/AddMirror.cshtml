@@ -2,30 +2,33 @@
         ViewBag.Title = "AddMirror";
     }
 
-    <h2>AddMirror</h2>
+<div class="container">
+    <h2 class="header text_b">Add a new Mirror</h2>
+    
     <div class="row">
         <div class="col s12 light">
-            Here you can add a new mirror by typing in the secret name of you mirror
+            Here you can add a new mirror to your account by typing in the display name of you mirror.<br/>
+            It should be visible below the clock of your mirror.
         </div>
     </div>
+
     <div class="row">
-        <div class="col s12 light">
-            <div class="row">
-                <div class="col s6 light">
-                    <input type="text" id="mirror-name"/>
-                    <button id="btnHandshake">Search</button>
-                </div>
-                <div class="col s6 light">
-                    Here you can add a new mirror by typing in the secret name of you mirror
-                </div>
-            </div>
-        </div>
+        <div class="input-field col s6">
+            <input placeholder="ColdSnow#0042" id="mirror-name" type="text" class="validate">
+            <label for="mirror-name">Mirror Name</label>
+        </div>               
     </div>
+    
+    <div class="row" style="min-height: 25vh">
+        <button class="btn waves-effect waves-light blue darken-2" id="btnHandshake" name="action">Add Mirror</button>
+    </div>
+</div>
+
     @section Scripts{
         <script>
             $(document).ready(function () {
                 $("#btnHandshake").on("click", function () {
-                    var mirrorname = $("#mirror-name").text();
+                    var mirrorname = $("#mirror-name").innerHTML();
                     if (mirrorname == '') {
                         alert("Write the secret name of your mirror in the input field!");
                     } else {
