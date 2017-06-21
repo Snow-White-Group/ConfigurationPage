@@ -13,7 +13,6 @@ namespace UIConfiguration.Controllers
     public class ConfigurationController : Controller
     {
         private readonly ApplicationDbContext _dbContext = ApplicationDbContext.GetContext();
-        private static List<MirrorAction> _mirrorActions = new List<MirrorAction>();
         private static MirrorsUserViewModel _mirrorUserViewModel;
         private SnowwhiteUser _loggedInUser = ApplicationDbContext.GetUser();
 
@@ -51,8 +50,11 @@ namespace UIConfiguration.Controllers
         public JsonResult StartRecording(string id)
         {
             Mirror targetMirror = _mirrorUserViewModel.Mirrors.FirstOrDefault(x => x.Id.Equals(id));
-            _mirrorActions.Add(new MirrorAction()
+            _dbContext.Actions.Add(new MirrorAction()
             {
+                Id = Guid.NewGuid().ToString(),
+                IsDone = false,
+                RequestedAt = DateTime.Now,
                 TargetAction = ActionForMirror.Record,
                 TargetMirror = new MirrorForAction()
                 {
@@ -91,16 +93,16 @@ namespace UIConfiguration.Controllers
         [AllowAnonymous]
         public JsonResult GetPostbox(string secretname)
         {
-            var actions = _mirrorActions.Where(x => x.TargetMirror.SecretName.Equals(secretname));
+            var actions = _dbContext.Actions.Where(x => x.TargetMirror.SecretName.Equals(secretname) && !x.IsDone);
             if (actions.Any())
             {
                 foreach(var a in actions)
                 {
-                    _mirrorActions.Remove(a);
+                    a.IsDone = true;
                 }
                 return Json(actions, JsonRequestBehavior.AllowGet);
             }
-            return Json(actions.Count(), JsonRequestBehavior.AllowGet);
+            return Json(new List<MirrorAction>(), JsonRequestBehavior.AllowGet);
         }
 
         [AllowAnonymous]
@@ -114,10 +116,12 @@ namespace UIConfiguration.Controllers
             }
 
             _loggedInUser.Mirrors.Add(targetMirror);
-            _dbContext.SaveChanges();
 
-            _mirrorActions.Add(new MirrorAction()
+            _dbContext.Actions.Add(new MirrorAction()
             {
+                Id = Guid.NewGuid().ToString(),
+                IsDone = false,
+                RequestedAt = DateTime.Now,
                 TargetAction = ActionForMirror.Handshake,
                 TargetMirror = new MirrorForAction()
                 {
@@ -135,6 +139,7 @@ namespace UIConfiguration.Controllers
                 }
             });
 
+            _dbContext.SaveChanges();
             return Json(true, JsonRequestBehavior.AllowGet);
         }
     }

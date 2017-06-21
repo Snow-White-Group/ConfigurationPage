@@ -15,6 +15,7 @@ namespace UIConfiguration.Models
         }
 
         public DbSet<Mirror> Mirrors { get; set; }
+        public DbSet<MirrorAction> Actions { get; set; }
 
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {
@@ -22,6 +23,7 @@ namespace UIConfiguration.Models
 
             modelBuilder.Entity<SnowwhiteUser>().HasKey(x => x.Id);
             modelBuilder.Entity<Mirror>().ToTable("Mirrors");
+            modelBuilder.Entity<MirrorAction>().ToTable("Actions");
         }
 
         public static ApplicationDbContext Create()

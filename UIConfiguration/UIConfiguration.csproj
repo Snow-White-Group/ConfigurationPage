@@ -232,6 +232,10 @@
     <Compile Include="Migrations\201706201734087_MirrorsAndUsersFixNo1.Designer.cs">
       <DependentUpon>201706201734087_MirrorsAndUsersFixNo1.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201706212221328_Actions.cs" />
+    <Compile Include="Migrations\201706212221328_Actions.Designer.cs">
+      <DependentUpon>201706212221328_Actions.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\ForgotPasswordViewModel.cs" />
     <Compile Include="Models\IdentityContext.cs" />
@@ -424,6 +428,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201706201734087_MirrorsAndUsersFixNo1.resx">
       <DependentUpon>201706201734087_MirrorsAndUsersFixNo1.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201706212221328_Actions.resx">
+      <DependentUpon>201706212221328_Actions.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>
