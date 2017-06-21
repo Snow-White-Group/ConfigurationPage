@@ -239,6 +239,7 @@
     <Compile Include="Models\Mirror.cs" />
     <Compile Include="Models\MirrorAction.cs" />
     <Compile Include="Models\MirrorNames.cs" />
+    <Compile Include="Models\MirrorUserViewModel.cs" />
     <Compile Include="Models\ResetPasswordViewModel.cs" />
     <Compile Include="Models\SnowwhiteUser.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -403,6 +404,7 @@
     <Content Include="Views\Account\NotVerificated.cshtml" />
     <Content Include="Views\Configuration\ShowProfile.cshtml" />
     <Content Include="Views\Configuration\MirrorConfiguration.cshtml" />
+    <Content Include="Views\Configuration\AddMirror.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

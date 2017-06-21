@@ -1,0 +1,47 @@
+﻿    @{
+        ViewBag.Title = "AddMirror";
+    }
+
+    <h2>AddMirror</h2>
+    <div class="row">
+        <div class="col s12 light">
+            Here you can add a new mirror by typing in the secret name of you mirror
+        </div>
+    </div>
+    <div class="row">
+        <div class="col s12 light">
+            <div class="row">
+                <div class="col s6 light">
+                    <input type="text" id="mirror-name"/>
+                    <button id="btnHandshake">Search</button>
+                </div>
+                <div class="col s6 light">
+                    Here you can add a new mirror by typing in the secret name of you mirror
+                </div>
+            </div>
+        </div>
+    </div>
+    @section Scripts{
+        <script>
+            $(document).ready(function () {
+                $("#btnHandshake").on("click", function () {
+                    var mirrorname = $("#mirror-name").text();
+                    if (mirrorname == '') {
+                        alert("Write the secret name of your mirror in the input field!");
+                    } else {
+                        $.ajax(function () {
+                            url: 'snowwhite-configurationpage.azurewebsites.net/Configuration/Handshake/'
+                        }).done(function (res) {
+                            if (!res) {
+                                alert("The given secretname " + mirrorname + " is invalid");
+                            } else {
+                                alert("Successfull! Now wait till the handshake is done!");
+                            }
+                        }).fail(function (err) {
+                            alert(err);
+                        });
+                    }
+                });
+            });
+        </script>    
+    }

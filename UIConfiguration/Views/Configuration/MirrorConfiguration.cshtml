@@ -1,5 +1,5 @@
 ﻿@using UIConfiguration.Models
-@model SnowwhiteUser
+@model TargetMirrorUserViewModel
 @{
     ViewBag.Title = "Mirror-Configuration";
 }
@@ -36,8 +36,8 @@
     }
 </style>
 
-<h2>Hello @Model.FirstName @Model.LastName !</h2>
-@if (Model.SpeechID == null || Model.SpeechID.Equals(""))
+<h2>Hello @Model.User.FirstName @Model.User.LastName !</h2>
+@if (Model.User.SpeechID == null || Model.User.SpeechID.Equals(""))
 {
     <p>You have to record your voice!</p>
     <p></p>
@@ -125,5 +125,15 @@
             widgetPool.add_widget.apply(widgetPool, dwarf)
         });
     }
+
+    $("#startRecording").on("click", function () {
+        $.ajax(function () {
+            url: 'snowwhite-configurationpage.azurewebsites.net/Configuration/StartRecording?id=' + @Model.Mirror.Id,
+            type: 'json',
+            async: true
+        }).done(function () {
+            alert("Go to your Mirror " + @Model.Mirror.SecretName + " and record you voice");
+        })
+    });
     </script>
 }

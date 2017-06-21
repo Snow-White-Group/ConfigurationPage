@@ -14,7 +14,7 @@ namespace UIConfiguration.Models
         {
         }
 
-        public DbSet<Mirror> Mirrora { get; set; }
+        public DbSet<Mirror> Mirrors { get; set; }
 
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {

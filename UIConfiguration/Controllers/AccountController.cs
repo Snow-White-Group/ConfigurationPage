@@ -167,11 +167,11 @@ namespace UIConfiguration.Models
         private void SendVerificationEmail(SnowwhiteUser user)
         {
             SnowwhiteUser userForMail = loggedInUser ?? user;
-            string body = "<img src='/Content/snowwhite-logo48.png'/>";
-            body += "<h2 style='color: #2196F; font-weight: 300; font-size: 6em; 2.92rem;'>Hello " + userForMail.FirstName + " " + userForMail.LastName + "!</h2>";
+            string body = "<img src='~/Content/Images/snowwhite-logo48.png'/>";
+            body += "<h2 style='color: #2196F3; font-weight: 300; font-size: 6em; 2.92rem;'>Hello " + userForMail.FirstName + " " + userForMail.LastName + "!</h2>";
             //body += "<br /><a href = '" + Url.Action("Verify", "Account", new { id = userForMail.Id }) + "'>Click here to activate your account.</a>";
             body += "<br /><a href = 'http://snowwhite-configurationpage.azurewebsites.net/Account/Verify?id=" + userForMail.Id +"'>Click here to activate your account.</a>";
-            body += "<br /><br/> Thank you and have fun and enjoy your smart mirror!";
+            body += "<br /><br/> Thank you and have fun with enjoying your smart mirror!";
             body += "<br /><br/><span style='color: #2196F3; font-weight: 100; font-size: 3em;'>Your Snowwhite-Team</span>";
             try
             {
@@ -188,7 +188,6 @@ namespace UIConfiguration.Models
                 smtpClient.Send(mail);
             } catch(Exception e)
             {
-                string txt = e.Message;
             }
         }
 
@@ -213,7 +212,7 @@ namespace UIConfiguration.Models
         public async Task<JsonResult> SendForgotPasswordMail(string email)
         {
             SnowwhiteUser userForMail = _dbContext.Users.FirstOrDefault(x => x.Email.Equals(email));
-            string body = "<img src='/Content/snowwhite-logo48.png'/>";
+            string body = "<img src='~/Content/Images/snowwhite-logo48.png'/>";
             body += "<h2 style='color: #2196F3; font-weight: 300; font-size: 6em;'>Hello " + userForMail.FirstName + " " + userForMail.LastName + "!</h2>";
             //body += "<br /><a href = '" + Url.Action("ResetPassword", "Account", new { id = userForMail.Id, forgot = true }) + "'>Click here to reset your password.</a>";
             body += "<br /><a href = 'http://snowwhite-configurationpage.azurewebsites.net/Account/ForgotPassword?id=" + userForMail.Id +"'>Click here to set a new password.</a>";
@@ -237,7 +236,7 @@ namespace UIConfiguration.Models
         public async Task<JsonResult> SendResetPasswordMail(string email)
         {
             SnowwhiteUser userForMail = _dbContext.Users.FirstOrDefault(x => x.Email.Equals(email));
-            string body = "<img src='/Content/snowwhite-logo48.png'/>";
+            string body = "<img src='~/Content/Images/snowwhite-logo48.png'/>";
             body += "<h2 style='color: #2196F3; font-weight: 300; font-size: 6em;'>Hello " + userForMail.FirstName + " " + userForMail.LastName + "!</h2>";
             //body += "<br /><a href = '" + Url.Action("ResetPassword", "Account", new { id = userForMail.Id, forgot = true }) + "'>Click here to reset your password.</a>";
             body += "<br /><a href = 'http://snowwhite-configurationpage.azurewebsites.net/Account/ResetPassword?id=" + userForMail.Id + "'>Click here to reset your password.</a>";
