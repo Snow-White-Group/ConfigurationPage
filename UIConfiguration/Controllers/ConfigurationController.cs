@@ -14,12 +14,12 @@ namespace UIConfiguration.Controllers
     {
         private readonly ApplicationDbContext _dbContext = ApplicationDbContext.GetContext();
         private List<MirrorAction> _mirrorActions = new List<MirrorAction>();
-        private MirrorsUserViewModel _mirrorUserViewModel;
+        private static MirrorsUserViewModel _mirrorUserViewModel;
         private SnowwhiteUser _loggedInUser = ApplicationDbContext.GetUser();
 
         public ActionResult Index()
         {
-            this._mirrorUserViewModel = new MirrorsUserViewModel()
+            _mirrorUserViewModel = new MirrorsUserViewModel()
             {
                 User = this._loggedInUser,
                 Mirrors = _dbContext.Users.Find(this._loggedInUser.Id).Mirrors
@@ -89,20 +89,29 @@ namespace UIConfiguration.Controllers
         }
 
         [AllowAnonymous]
-        public JsonResult GetPostbox(string mirrorId)
+        public JsonResult GetPostbox(string secretname)
         {
-            return Json(this._mirrorActions.FirstOrDefault(x => x.TargetMirror.Id.Equals(mirrorId)), JsonRequestBehavior.AllowGet);
+            var actions = this._mirrorActions.Where(x => x.TargetMirror.SecretName.Equals(secretname));
+            if (actions.Any())
+            {
+                foreach(var a in actions)
+                {
+                    this._mirrorActions.Remove(a);
+                }
+                return Json(actions, JsonRequestBehavior.AllowGet);
+            }
+            return Json(null, JsonRequestBehavior.AllowGet);
         }
 
-        [AllowAnonymous]
-        public JsonResult Handshake(string secretName)
+        public JsonResult Handshake(string displayName)
         {
-            if(_dbContext.Mirrors.Any(x => x.SecretName.Equals(secretName)))
+            Mirror targetMirror = _dbContext.Mirrors.FirstOrDefault(x => x.DisplayName.Equals(displayName));
+
+            if (targetMirror == null)
             {
                 return Json(false, JsonRequestBehavior.AllowGet);
             }
 
-            Mirror targetMirror = _mirrorUserViewModel.Mirrors.FirstOrDefault(x => x.SecretName.Equals(secretName));
             this._mirrorActions.Add(new MirrorAction()
             {
                 TargetAction = ActionForMirror.Handshake,

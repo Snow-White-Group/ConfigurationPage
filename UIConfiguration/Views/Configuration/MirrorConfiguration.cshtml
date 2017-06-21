@@ -129,7 +129,6 @@
     $("#startRecording").on("click", function () {
         $.ajax(function () {
             url: 'snowwhite-configurationpage.azurewebsites.net/Configuration/StartRecording?id=' + @Model.Mirror.Id,
-            type: 'json',
             async: true
         }).done(function () {
             alert("Go to your Mirror " + @Model.Mirror.SecretName + " and record you voice");

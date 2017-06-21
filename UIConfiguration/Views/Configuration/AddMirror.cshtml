@@ -28,12 +28,12 @@
         <script>
             $(document).ready(function () {
                 $("#btnHandshake").on("click", function () {
-                    var mirrorname = $("#mirror-name").innerHTML();
+                    var mirrorname = $("#mirror-name").val();
                     if (mirrorname == '') {
-                        alert("Write the secret name of your mirror in the input field!");
+                        alert("Write the display name of your mirror in the input field!");
                     } else {
                         $.ajax(function () {
-                            url: 'snowwhite-configurationpage.azurewebsites.net/Configuration/Handshake/?secretname=' + mirrorname
+                            url: 'http://snowwhite-configurationpage.azurewebsites.net/Configuration/Handshake?displayName=' + mirrorname
                         }).done(function (res) {
                             if (!res) {
                                 alert("The given secretname " + mirrorname + " is invalid");
