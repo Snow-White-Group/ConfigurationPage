@@ -32,6 +32,7 @@
                     if (mirrorname == '') {
                         alert("Write the display name of your mirror in the input field!");
                     } else {
+                        console.log('http://snowwhite-configurationpage.azurewebsites.net/Configuration/Handshake?displayName=' + mirrorname);
                         $.ajax(function () {
                             url: 'http://snowwhite-configurationpage.azurewebsites.net/Configuration/Handshake?displayName=' + mirrorname
                         }).done(function (res) {
@@ -42,6 +43,7 @@
                             }
                         }).fail(function (err) {
                             alert(err);
+                            console.log(err);
                         });
                     }
                 });

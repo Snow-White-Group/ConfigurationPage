@@ -103,6 +103,7 @@ namespace UIConfiguration.Controllers
             return Json(null, JsonRequestBehavior.AllowGet);
         }
 
+        [AllowAnonymous]
         public JsonResult Handshake(string displayName)
         {
             Mirror targetMirror = _dbContext.Mirrors.FirstOrDefault(x => x.DisplayName.Equals(displayName));
