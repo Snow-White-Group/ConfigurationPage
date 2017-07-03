@@ -15,5 +15,13 @@ namespace UIConfiguration.Models
             DisplayName = displayName;
             SecretName = secretName;
         }
+        public override bool Equals(object obj)
+        {
+            if (!obj is MirrorNames) return false;
+            
+            var working = obj as MirrorNames;
+            return working.DisplayName.Equals(this.DisplayName) && working.SecretName.Equals(this.SecretName);
+           
+        }
     }
 }
