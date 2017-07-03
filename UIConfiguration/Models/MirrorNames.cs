@@ -5,7 +5,7 @@ using System.Web;
 
 namespace UIConfiguration.Models
 {
-    public struct MirrorNames
+    public struct MirrorNames 
     {
         public readonly string DisplayName;
         public readonly string SecretName;
@@ -17,11 +17,14 @@ namespace UIConfiguration.Models
         }
         public override bool Equals(object obj)
         {
-            if (!(obj is MirrorNames)) return false;
+            if (obj is MirrorNames) { 
             
-            var working = obj as MirrorNames;
+            var working = (MirrorNames) obj ;
             return working.DisplayName.Equals(this.DisplayName) && working.SecretName.Equals(this.SecretName);
-           
+            } else
+            {
+                return false;
+            }
         }
     }
 }
