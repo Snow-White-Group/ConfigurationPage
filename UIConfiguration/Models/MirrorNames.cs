@@ -5,7 +5,7 @@ using System.Web;
 
 namespace UIConfiguration.Models
 {
-    public class MirrorNames
+    public struct MirrorNames
     {
         public readonly string DisplayName;
         public readonly string SecretName;
